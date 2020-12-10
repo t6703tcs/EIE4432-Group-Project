@@ -36,7 +36,6 @@
 - The system administrator can view all users’ information
 - The system administrator can add/remove/modify user account (student and teacher)
 
----
 # 2. Marking Scheme
 - Project report: 50% 
     - All functions: 40%
