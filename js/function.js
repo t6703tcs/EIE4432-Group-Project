@@ -1,3 +1,3 @@
 function checkInformation() {
-    getElementById("Select_S_T");
+    let roles = getElementById("Select_S_T").textContent;
 }
