@@ -51,35 +51,29 @@
         //Get selected inputted values from the HTML page
         $ID = $_POST['UserID'];
         $pw = $_POST['pwd'];
-        $nickName = $_POST['nickName'];        
-        $email = $_POST['email'];                
-        $role = $_POST['Select_S_T'];
 
         //Select inputted values to INSERT record by using SQL
-        if ($role == "Teacher"){
+        if ($role == "Teacher") {
             $course = $_POST['course'];
-            
+
             $sql = "INSERT INTO user (`id`, `name`, `email`, `password`, `image`, `role`, `course`)
             VALUES ($ID, '$nickName', '$email', '$pw', '', '$role', '$course')";
-        } else if ($role == "Student"){
+        } else if ($role == "Student") {
             $birthday = $_POST['birthday'];
             $gender = $_POST['gender'];
 
             $sql = "INSERT INTO user (`id`, `name`, `email`, `password`, `image`, `role`, `gender`, `birthday`)
             VALUES ($ID, '$nickName', '$email', '$pw', '', '$role', '$gender', '$birthday')";
         }
-        
+
         //Show message when record is added successfully
         if (mysqli_query($connect, $sql)) {
             echo "<h3>A new user record is added successfully!</h3><br>";
         } else {
             $err = "Error: " . $sql . "<br>" . mysqli_error($connect);
-            if (strpos($err,"Duplicate") == true){
-                echo "<h3>User ID or email is used already. \nPlease use another email.</h3><br>";
-            } else {
-                echo $err;
-            }
+            echo $err;
         }
+
         mysqli_close($connect);
         ?>
 
