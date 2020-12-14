@@ -8,7 +8,7 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-    <script src="/js/function.js"></script>
+    <script src="/EIE4432-Group-Project/js/function.js"></script>
 </head>
 
 <body>
@@ -40,11 +40,28 @@
 
     <div class="container h-100 mt-3">
         <h2>User Registration:</h2>
+
+        <div class="alert alert-danger alert-dismissible fade show" id="warningBox" hidden>
+            <button type="button" class="close" data-dismiss="alert">&times;</button>
+            <strong>Warning!</strong> Please input all required information.
+        </div>
+
+        <div class="alert alert-info alert-dismissible fade show" id="roleBox" hidden>
+            <button type="button" class="close" data-dismiss="alert">&times;</button>
+            <strong>Warning!</strong> Please select your role. (Student/ Teacher)
+        </div>
+
+        <div class="alert alert-warning alert-dismissible fade show" id="inputBox" hidden>
+            <button type="button" class="close" data-dismiss="alert">&times;</button>
+            <strong>Warning!</strong> The format of information is wrong. <br>User ID should be digits and Email address should contain "@"
+        </div>
+
         <div class="row h-100 justify-content-center align-items-center">
-            <form class="col-12" action="upload.php">
+            <form class="col-12" method="post" action="/EIE4432-Group-Project/php/upload.php" id="form_content">
                 <div class="form-group">
-                    <label for="text">Select Student/ Teacher:</label>
-                    <select class="form-control" id="Select_S_T">
+                    <label for="text">Student/ Teacher:</label>
+                    <select class="form-control" id="Select_S_T" onchange="checkRoles()">
+                        <option value="" selected disabled>Select Student/ Teacher</option>
                         <option>Student</option>
                         <option>Teacher</option>
                     </select>
@@ -61,16 +78,18 @@
                     <label for="text">Nick Name:</label>
                     <input type="text" class="form-control" placeholder="Enter Nick Name" id="nickName">
                 </div>
-                <div class="form-group">
+                <div class="form-group" id="gender_hide_show">
                     <label for="text">Gender:</label>
-                    <select class="form-control" id="gender">
+                    <select class="form-control" id="gender" disabled>
+                        <option value="" selected disabled></option>
                         <option>M</option>
                         <option>F</option>
                     </select>
                 </div>
-                <div class="form-group">
+                <div class="form-group" id="course_hide_show">
                     <label for="text">Course:</label>
-                    <select class="form-control" id="course">
+                    <select class="form-control" id="course" disabled>
+                        <option value="" selected disabled></option>
                         <option>EIE3333_20201_A: Data and Computer Communications</option>
                         <option>EIE4435_20201_A: Image and Audio Processing</option>
                         <option>EIE3109_20201_A: Mobile Systems and Application Development</option>
@@ -80,11 +99,11 @@
                 </div>
                 <div class="form-group">
                     <label for="text">Email address:</label>
-                    <input type="text" class="form-control" placeholder="Enter Email" id="email">
+                    <input type="email" class="form-control" id="email" aria-describedby="emailHelp" placeholder="Enter email">
                 </div>
-                <div class="form-group">
+                <div class="form-group" id="birthday_hide_show">
                     <label for="text">Birthday:</label>
-                    <input type="date" class="form-control" placeholder="Enter birthday" id="birthday">
+                    <input type="date" class="form-control" placeholder="Enter birthday" id="birthday" disabled>
                 </div>
                 <div class="form-group">
                     <label for="ProfileImage">Profile image:</label>
@@ -99,14 +118,14 @@
                     </div>
                 </div>
                 <div class="form-group text-center">
-                    <button type="submit" class="btn btn-primary mt-3">Submit</button>
+                    <button type="button" class="btn btn-primary mt-3" onclick="checkInfo()" id="btnSubmit">Submit</button>
                 </div>
             </form>
         </div>
     </div>
 
     <div class="jumbotron text-center">
-        <p>Back to top</p>
+        <p></p>
     </div>
 
 </body>
