@@ -57,10 +57,10 @@
         </div>
 
         <div class="row h-100 justify-content-center align-items-center">
-            <form class="col-12" method="post" action="/EIE4432-Group-Project/php/upload.php" id="form_content">
+            <form class="col-12" method="post" action="/EIE4432-Group-Project/php/registration.php" id="form_content">
                 <div class="form-group">
                     <label for="text">Student/ Teacher:</label>
-                    <select class="form-control" id="Select_S_T" onchange="checkRoles()">
+                    <select class="form-control" id="Select_S_T" name="Select_S_T" onchange="checkRoles()">
                         <option value="" selected disabled>Select Student/ Teacher</option>
                         <option>Student</option>
                         <option>Teacher</option>
@@ -68,19 +68,19 @@
                 </div>
                 <div class="form-group">
                     <label for="text">User ID:</label>
-                    <input type="text" class="form-control" placeholder="Enter User ID" id="UserID">
+                    <input type="text" class="form-control" placeholder="Enter User ID" id="UserID" name="UserID">
                 </div>
                 <div class="form-group">
                     <label for="text">Password:</label>
-                    <input type="password" class="form-control" placeholder="Enter Password" id="pwd">
+                    <input type="password" class="form-control" placeholder="Enter Password" id="pwd" name="pwd">
                 </div>
                 <div class="form-group">
                     <label for="text">Nick Name:</label>
-                    <input type="text" class="form-control" placeholder="Enter Nick Name" id="nickName">
+                    <input type="text" class="form-control" placeholder="Enter Nick Name" id="nickName" name="nickName">
                 </div>
                 <div class="form-group" id="gender_hide_show">
                     <label for="text">Gender:</label>
-                    <select class="form-control" id="gender" disabled>
+                    <select class="form-control" id="gender" name="gender" disabled>
                         <option value="" selected disabled></option>
                         <option>M</option>
                         <option>F</option>
@@ -88,7 +88,7 @@
                 </div>
                 <div class="form-group" id="course_hide_show">
                     <label for="text">Course:</label>
-                    <select class="form-control" id="course" disabled>
+                    <select class="form-control" id="course" name="course" disabled>
                         <option value="" selected disabled></option>
                         <option>EIE3333_20201_A: Data and Computer Communications</option>
                         <option>EIE4435_20201_A: Image and Audio Processing</option>
@@ -99,11 +99,11 @@
                 </div>
                 <div class="form-group">
                     <label for="text">Email address:</label>
-                    <input type="email" class="form-control" id="email" aria-describedby="emailHelp" placeholder="Enter email">
+                    <input type="email" class="form-control" id="email" aria-describedby="emailHelp" placeholder="Enter email" name="email">
                 </div>
                 <div class="form-group" id="birthday_hide_show">
                     <label for="text">Birthday:</label>
-                    <input type="date" class="form-control" placeholder="Enter birthday" id="birthday" disabled>
+                    <input type="date" class="form-control" placeholder="Enter birthday" id="birthday" name="birthday" disabled>
                 </div>
                 <div class="form-group">
                     <label for="ProfileImage">Profile image:</label>
