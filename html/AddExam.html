@@ -7,6 +7,7 @@
 <script src="/EIE4432-Group-Project/js/function.js"></script>
 <link rel="stylesheet" href="">
 
+
 </head>
 
 <body onload="hideAll()">
@@ -15,32 +16,36 @@
 <!--
     Info about the Exam being add
 -->
-<form>
+<form action="/web/EIE4432-Group-Project/php/AddExam.php" method="POST">
 <label for="ExamDate">Date of the Exam: </label> <input type="date" id="ExamDate" name="ExamDate" value="YYYY-MM-DD">
     <br><br>
 <label for="StartTime">Starting Time of the Exam: </label> <input type="time" id="StartTime" name="StartTime" value="--:--">
     <br><br>
 <label for="Duration">Duration of the Exam: </label> <input type="number" id="Duration" name="Duration" min="1" max="12">
     <br><br>
-        <input type="submit" value="Submit"> <input type="reset" value="Reset">
+        <input type="button" value="Set Exam Time" id="AddTime" onclick="GenerateID()"> <input type="reset" value="Reset" id="ResetTime" onclick="ResetDate()">
 </form>
 
 <br>
+<div id=TimeChose> </div>
 <!--
     adding the questions
 -->
 
 
+<form action="/web/EIE4432-Group-Project/php/AddExam.php" method="POST">
+    <p>Question Type: </p>
+    <input type="radio" id="MC" name="QuestionType" value="MC"> MC
+    <input type="radio" id="TF" name="QuestionType" value="TF"> T/F
+    <input type="button" value="Continue..." id= "Chose" onclick="chooseType()">
+</form>
 
-<p>Question Type: </p>
-<input type="radio" id="MC" name="QuestionType" value="MC"> MC
-<input type="radio" id="TF" name="QuestionType" value="TF"> T/F
 
-<button onclick="chooseType()">Continue...</button>
+
 
 
     <div id="AddMC">
-        <form>
+        <form action="/web/EIE4432-Group-Project/php/AddExam.php" method="POST">
         <br><br>
         <label for="Question">Question: </label><br>
         <textarea id="Question" name="Question" rows="4" cols="50" required>
@@ -53,8 +58,8 @@
             Choice D: <input type="text" id="choiceD" name="choiceD" required>
             <br><br>
             Correct Answer: 
-            <select id="MCans" name="MCans" required>
-                <option value="-">-</option>
+            <select id="Answer" name="Answer" required>
+                <option selected hidden value="">Select Correct Ans</option>
                 <option value="ansA">A</option>
                 <option value="ansB">B</option>
                 <option value="ansC">C</option>
@@ -69,15 +74,15 @@
     </div> 
 
     <div id="AddTF">
-        <form>
+        <form action="/web/EIE4432-Group-Project/php/AddExam.php" method="POST">
         <br><br>
         <label for="Question">Question: </label><br>
         <textarea id="Question" name="Question" rows="4" cols="50" required>
         </textarea>
             <br><br>
             Correct Answer: 
-            <select id="TFans" name="TFans" required>
-                <option value="-">-</option>
+            <select id="Answer" name="Answer" required>
+                <option selected hidden value="">Select Correct Ans</option>
                 <option value="ansT">TRUE</option>
                 <option value="ansF">FALSE</option>
             </select>
@@ -96,6 +101,7 @@
 
 
 <script>
+    
 
     function chooseType() {
         var radios = document.getElementsByName("QuestionType");
@@ -106,13 +112,13 @@
         //If "MC" is checked
         if(selected == MC){
             var AddMC = document.getElementById("AddMC");
-        var AddTF = document.getElementById("AddTF");
+            var AddTF = document.getElementById("AddTF");
             AddMC.style.display = "block";
             AddTF.style.display = "none";
         //If "TF" is checked
         } else if (selected == TF){
             var AddMC = document.getElementById("AddMC");
-        var AddTF = document.getElementById("AddTF");
+            var AddTF = document.getElementById("AddTF");
             AddTF.style.display = "block";
             AddMC.style.display = "none";
     }
@@ -124,6 +130,33 @@
     var tf = document.getElementById("AddTF");
       mc.style.display = "none"; 
       tf.style.display = "none"; 
+    }
+
+    function GenerateID(){
+        document.getElementById("AddTime").disabled = true;
+        var ExamDate = document.getElementById("ExamDate").value;
+        var StartTime = document.getElementById("StartTime").value;
+        var Duration = document.getElementById("Duration").value;
+        var ED = ExamDate.toString();
+        var ST = StartTime.toString();
+        var Du = Duration.toString();
+        var rawID = ED+ST+Du;
+
+        var ExamID = rawID.replace(/\D/g, "");
+        var tag = document.createElement("p");
+        var text = document.createTextNode("The Exam will be held on " +ED+" at "+ST+" for "+Du+" hours.");
+        tag.appendChild(text);
+        var element = document.getElementById("TimeChose");
+        element.appendChild(tag);
+        alert(ExamID);
+        
+
+    }
+
+    function ResetDate(){
+        document.getElementById("AddTime").disabled = false;
+        var element = document.getElementById("TimeChose");
+        TimeChose.parentNode.removeChild(TimeChose);
     }
 
 </script>
