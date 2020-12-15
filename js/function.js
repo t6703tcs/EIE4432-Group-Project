@@ -75,3 +75,8 @@ function checkInfo() {
     }
 
 }
+
+
+// function chooseType(){
+//     alert("Hello! I am an alert box!!");
+// }

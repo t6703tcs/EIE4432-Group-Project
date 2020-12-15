@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+<title>Add Exam</title>
+
+<script src="/EIE4432-Group-Project/js/function.js"></script>
+<link rel="stylesheet" href="">
+
+</head>
+
+<body onload="hideAll()">
+<h1>Add New Exam Here</h1>
+
+<!--
+    Info about the Exam being add
+-->
+<form>
+<label for="ExamDate">Date of the Exam: </label> <input type="date" id="ExamDate" name="ExamDate" value="YYYY-MM-DD">
+    <br><br>
+<label for="StartTime">Starting Time of the Exam: </label> <input type="time" id="StartTime" name="StartTime" value="--:--">
+    <br><br>
+<label for="Duration">Duration of the Exam: </label> <input type="number" id="Duration" name="Duration" min="1" max="12">
+    <br><br>
+        <input type="submit" value="Submit"> <input type="reset" value="Reset">
+</form>
+
+<br>
+<!--
+    adding the questions
+-->
+
+
+
+<p>Question Type: </p>
+<input type="radio" id="MC" name="QuestionType" value="MC"> MC
+<input type="radio" id="TF" name="QuestionType" value="TF"> T/F
+
+<button onclick="chooseType()">Continue...</button>
+
+
+    <div id="AddMC">
+        <form>
+        <br><br>
+        <label for="Question">Question: </label><br>
+        <textarea id="Question" name="Question" rows="4" cols="50" required>
+        </textarea>
+            <br><br>
+            Choice A: <input type="text" id="choiceA" name="choiceA" required>
+            Choice B: <input type="text" id="choiceB" name="choiceB" required>
+            <br><br>
+            Choice C: <input type="text" id="choiceC" name="choiceC" required>
+            Choice D: <input type="text" id="choiceD" name="choiceD" required>
+            <br><br>
+            Correct Answer: 
+            <select id="MCans" name="MCans" required>
+                <option value="-">-</option>
+                <option value="ansA">A</option>
+                <option value="ansB">B</option>
+                <option value="ansC">C</option>
+                <option value="ansD">D</option>
+            </select>
+            <br><br>
+            Score for this question: 
+            <input type="number" id="Score" name="Score" min="1" max="100" required>
+            <br>
+            <input type="submit" value="Add Question" onclick="hideAll()"> <input type="reset" value="Reset">
+        </form>
+    </div> 
+
+    <div id="AddTF">
+        <form>
+        <br><br>
+        <label for="Question">Question: </label><br>
+        <textarea id="Question" name="Question" rows="4" cols="50" required>
+        </textarea>
+            <br><br>
+            Correct Answer: 
+            <select id="TFans" name="TFans" required>
+                <option value="-">-</option>
+                <option value="ansT">TRUE</option>
+                <option value="ansF">FALSE</option>
+            </select>
+            <br><br>
+            Score for this question: 
+            <input type="number" id="Score" name="Score" min="1" max="100" required>
+            <br>
+            <input type="submit" value="Add Question" onclick="hideAll()"> <input type="reset" value="Reset">
+        </form>
+    </div> 
+
+    
+
+
+</body>
+
+
+<script>
+
+    function chooseType() {
+        var radios = document.getElementsByName("QuestionType");
+        var selected = Array.from(radios).find(radio => radio.checked);
+        var QuestionText = document.getElementById("Question").value;
+        var AddMC = document.getElementById("AddMC");
+        var AddTF = document.getElementById("AddTF");
+        //If "MC" is checked
+        if(selected == MC){
+            var AddMC = document.getElementById("AddMC");
+        var AddTF = document.getElementById("AddTF");
+            AddMC.style.display = "block";
+            AddTF.style.display = "none";
+        //If "TF" is checked
+        } else if (selected == TF){
+            var AddMC = document.getElementById("AddMC");
+        var AddTF = document.getElementById("AddTF");
+            AddTF.style.display = "block";
+            AddMC.style.display = "none";
+    }
+            
+    }
+
+    function hideAll() {
+    var mc = document.getElementById("AddMC");
+    var tf = document.getElementById("AddTF");
+      mc.style.display = "none"; 
+      tf.style.display = "none"; 
+    }
+
+</script>
+
+<!-- <script>
+    function chooseType() {
+        var radios = document.getElementsByName("QuestionType");
+        var selected = Array.from(radios).find(radio => radio.checked);
+        var QuestionText = document.getElementById("Question").value;
+        // alert(selected.value);
+        if(selected == MC){
+            // alert(selected.value);
+            var tag = document.createElement("p");
+            var text = document.createTextNode(QuestionText);
+            tag.appendChild(text);
+            var element = document.getElementById("new");
+            element.appendChild(tag);
+
+            var btn = document.createElement("BUTTON");
+            var choiceA = document.createElement("input")
+            btn.innerHTML = "ADD";
+            choiceA.innerHTML = "input"
+            document.body.appendChild(btn);
+            document.body.appendChild(choiceA);
+
+        } else if (selected == TF)
+            var tag = document.createElement("p");
+            var text = document.createTextNode(QuestionText);
+            tag.appendChild(text);
+            var element = document.getElementById("new");
+            element.appendChild(tag);
+    }
+</script> -->
+
+
+</html>
+
