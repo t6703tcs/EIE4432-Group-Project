@@ -13,43 +13,18 @@
 <body onload="hideAll()">
 <h1>Add New Exam Here</h1>
 
-<!--
-    Info about the Exam being add
--->
-<!-- <form action="/web/EIE4432-Group-Project/php/AddExam.php" method="POST">
-    <label for="ExamDate">Date of the Exam: </label> <input type="date" id="ExamDate" name="ExamDate" value="YYYY-MM-DD" required>
-        <br><br>
-    <label for="StartTime">Starting Time of the Exam: </label> <input type="time" id="StartTime" name="StartTime" value="--:--" required>
-        <br><br>
-    <label for="EndTime">Ending Time of the Exam: </label> <input type="time" id="EndTime" name="EndTime" value="--:--" required>
-        <br><br>
-        Exam ID: <input type="text" id="ExamID" name="ExamID" required>
-        Question ID: <input type="text" id="QuestionID" name="QuestionID" required><br><br>
-            <input type="submit" value="Add Question" > <input type="reset" value="Reset" id="ResetTime" onclick="ResetDate()">
-            
-    </form> -->
+
 
 <br>
-<div id=TimeChose> </div>
-<!--
-    adding the questions
--->
 
+<br><br>
+<p>Question Type: </p>
+<input type="radio" id="MC" name="QuestionType" value="MC"> MC
+<input type="radio" id="TF" name="QuestionType" value="TF"> T/F
+<input type="button" value="Continue..." id= "Chose" onclick="chooseType()">
 
-
-    <p>Question Type: </p>
-    <input type="radio" id="MC" name="QuestionType" value="MC"> MC
-    <input type="radio" id="TF" name="QuestionType" value="TF"> T/F
-    <input type="button" value="Continue..." id= "Chose" onclick="chooseType()">
-
-
-
-
-
-
-    <div id="AddMC">
-        <form action="/web/EIE4432-Group-Project/php/AddExam.php" method="POST">
-        <br>
+    
+        <!-- <br>
         <label for="ExamDate">Date of the Exam: </label> 
         <input type="date" id="ExamDate" name="ExamDate" value="YYYY-MM-DD" required>
             <br><br>
@@ -61,13 +36,39 @@
             <br><br>
 
         Exam ID: <input type="text" id="ExamID" name="ExamID" required>
-        Question ID: <input type="text" id="QuestionID" name="QuestionID" required><br><br>
-       <input type="submit" value="Add Question" > <input type="reset" value="Reset" id="ResetTime" onclick="ResetDate()">
+        Question ID: <input type="text" id="QuestionID" name="QuestionID" required>
+            <br><br>
+       <input type="submit" value="Add Question" > <input type="reset" value="Reset" id="ResetTime" onclick="ResetDate()"> -->
 
+            <!-- <br><br>
+        <label for="Question">Question: </label>
+            <br>
+        <textarea id="Question" name="Question" rows="4" cols="50" required>
+        </textarea> --> 
+
+ 
+
+        <div id="AddMC">
+            <form action="/web/EIE4432-Group-Project/php/AddExam.php" method="POST">
+            <br>
+        <label for="ExamDate">Date of the Exam: </label> 
+        <input type="date" id="ExamDate" name="ExamDate" value="YYYY-MM-DD" required>
+            <br><br>
+        <label for="StartTime">Starting Time of the Exam: </label> 
+        <input type="time" id="StartTime" name="StartTime" value="--:--" required>
+            <br><br>
+        <label for="EndTime">Ending Time of the Exam: </label> 
+        <input type="time" id="EndTime" name="EndTime" value="--:--" required>
+            <br><br>
+
+        Exam ID (please stay the same for the same Exam): <input type="text" id="ExamID" name="ExamID" required><br><br>
+        Question ID (please change for each question): <input type="text" id="QuestionID" name="QuestionID" required>
         <br><br>
-        <label for="Question">Question: </label><br>
+        <label for="Question">Question: </label>
+            <br>
         <textarea id="Question" name="Question" rows="4" cols="50" required>
         </textarea>
+
             <br><br>
             Choice A: <input type="text" id="choiceA" name="choiceA" required>
             Choice B: <input type="text" id="choiceB" name="choiceB" required>
@@ -83,47 +84,54 @@
                 <option value="C">C</option>
                 <option value="D">D</option>
             </select>
-            <br><br>
+            
+
+            <br><br><br><br>
             Score for this question: 
             <input type="number" id="Score" name="Score" min="1" max="100" required>
-            <br>
-            <input type="submit" value="Add Question"> <input type="reset" value="Reset">
+            <br><br><br>
+            <input type="submit" value="Add Question"> <input type="reset" value="Reset All">
         </form>
     </div> 
+
+    
 
     <div id="AddTF">
+        <br><br>
         <form action="/web/EIE4432-Group-Project/php/AddExam.php" method="POST">
-        <br>
-        <label for="ExamDate">Date of the Exam: </label> <input type="date" id="ExamDate" name="ExamDate" value="YYYY-MM-DD" required>
-        <br><br>
-        <label for="StartTime">Starting Time of the Exam: </label> <input type="time" id="StartTime" name="StartTime" value="--:--" required>
+        <label for="ExamDate">Date of the Exam: </label> 
+        <input type="date" id="ExamDate" name="ExamDate" value="YYYY-MM-DD" required>
             <br><br>
-        <label for="EndTime">Ending Time of the Exam: </label> <input type="time" id="EndTime" name="EndTime" value="--:--" required>
-        <br><br>
-        Exam ID: <input type="text" id="ExamID" name="ExamID" required>
-        Question ID: <input type="text" id="QuestionID" name="QuestionID" required><br><br>
-            <input type="submit" value="Add Question" > <input type="reset" value="Reset" id="ResetTime" onclick="ResetDate()">
-        
-        <br><br>
-        <label for="Question">Question: </label><br>
-        <textarea id="Question" name="Question" rows="4" cols="50" required>
-        </textarea>
-        
+        <label for="StartTime">Starting Time of the Exam: </label> 
+        <input type="time" id="StartTime" name="StartTime" value="--:--" required>
+            <br><br>
+        <label for="EndTime">Ending Time of the Exam: </label> 
+        <input type="time" id="EndTime" name="EndTime" value="--:--" required>
             <br><br>
 
-            Correct Answer: 
-            <select id="Answer" name="Answer" required>
-                <option selected hidden value="">Select Correct Ans</option>
-                <option value="T">TRUE</option>
-                <option value="F">FALSE</option>
-            </select>
-            <br><br>
-            Score for this question: 
-            <input type="number" id="Score" name="Score" min="1" max="100" required>
+        Exam ID (please stay the same for the same Exam): <input type="text" id="ExamID" name="ExamID" required><br><br>
+        Question ID (please change for each question): <input type="text" id="QuestionID" name="QuestionID" required>
+        <br><br>
+        <label for="Question">Question: </label>
             <br>
-            <input type="submit" value="Add Question"> <input type="reset" value="Reset">
-        </form>
-    </div> 
+        <textarea id="Question" name="Question" rows="4" cols="50" required>
+        </textarea>
+        <br><br>
+        Correct Answer: 
+        <select id="Answer" name="Answer" required>
+            <option selected hidden value="">Select Correct Ans</option>
+            <option value="T">TRUE</option>
+            <option value="F">FALSE</option>
+        </select>
+        <br><br><br><br>
+        Score for this question: 
+        <input type="number" id="Score" name="Score" min="1" max="100" required>
+        <br><br><br>
+        <!-- <input type="button" onclick="document.getElementById('QuestionID').value = ''" value="Type A New T/F Question"> -->
+        <input type="submit" value="Add Question"> <input type="reset" value="Reset All">
+</form>
+</div> 
+
 
     
 

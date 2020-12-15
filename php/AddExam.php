@@ -1,4 +1,10 @@
 <?php
+
+echo "<h2>The Question has been added!</h2>";
+echo "<h2>You can click Back on your browser to add another question!</h2>";
+
+
+
     $hostname = "localhost";
     $username = "root";
     $password = "";
