@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 
 <head>
-    <title>User Registration</title>
+    <title>Edit User</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
@@ -48,23 +48,10 @@
         </div>
     </nav>
 
+    <!-- Modify alert box -->
     <div class="container" style="margin-top:30px">
-        <!-- Delete alert box -->
-        <div class="alert alert-dark" id="deleteBox" hidden>
-            <strong>Delete:</strong>
-            <form action="delete.php" method="post">
-                <p>Choose one user to delete:
-                    <select class="form-control" id="idDisplay" name="idDisplay">
-                    </select>
-                    <div class="text-center"><input class="btn btn-dark" type="submit" value="Submit to Delete">
-                </p>
-        </div>
-
-        </form>
-    </div>
-    <!-- Insert alert box -->
-    <div class="alert alert-dark" id="insertBox" hidden>
-        <strong>Insert:</strong>
+    <div class="alert alert-dark" id="modifyBox">
+        <strong>Modify:</strong>
         <div class="alert alert-danger alert-dismissible fade show" id="warningBox" hidden>
             <button type="button" class="close" data-dismiss="alert">&times;</button>
             <strong>Warning!</strong> Please input all required information.
@@ -81,7 +68,7 @@
         </div>
 
         <div class="row h-100 justify-content-center align-items-center">
-            <form class="col-12" method="post" action="/EIE4432-Group-Project/php/registration.php" id="form_content" enctype="multipart/form-data">
+            <form class="col-12" method="post" action="/EIE4432-Group-Project/php/update.php" id="form_content" enctype="multipart/form-data">
                 <div class="form-group">
                     <label for="text">Student/ Teacher:</label>
                     <select class="form-control" id="Select_S_T" name="Select_S_T" onchange="checkRoles()">
@@ -145,71 +132,6 @@
                     <button type="button" class="btn btn-dark mt-3" onclick="checkInfo()" id="btnSubmit">Submit</button>
                 </div>
             </form>
-        </div>
-    </div>
-
-
-    <div class="row">
-        <div class="col-sm-4">
-            <h2>System Management</h2>
-            <ul class="nav nav-pills flex-column">
-                <li class="nav-item">
-                    <a class="nav-link" href="#" onclick="enableDelete();">Delete</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#" onclick="enableInsert();">Insert</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="/EIE4432-Group-Project/html/changePassword.html">Change password</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link active" href="/EIE4432-Group-Project/html/login.html" onclick="clearCookie();">Log Out</a>
-                </li>
-            </ul>
-            <hr class="d-sm-none">
-        </div>
-        <div class="col-sm-8">
-            <h2>Show all records</h2>
-            <?php
-            //Connect to SQL sever
-            include "mysql-connect.php";
-            $connect = mysqli_connect($server, $user, $pw, $db);
-
-            if (!$connect) {
-                die('Could not connect: ' . mysqli_error($connect));
-            }
-
-            //Get selected inputted values from the HTML page
-            //$ID = strval($_POST['UserID']);
-
-            //Select all record to display by using SQL
-            $userQuery = strval("SELECT * FROM `user`");
-            //$sql = strval($userQuery+intval($ID));
-
-            $result = mysqli_query($connect, $userQuery);
-            $count = mysqli_num_rows($result);
-
-            if (!$result) {
-                die("Could not successfully run query.");
-            }
-            if (mysqli_num_rows($result) == 0) {
-                print "No records were found with query $userQuery";
-            } else {
-                $i = 0;
-                print "<p>There are <a id='idCount'>" . $count . "</a> users as follows: </p>";
-                print "<table class='table table-hover text-center'><form>";
-                print "<tr><th> ID </th><th> Name </th><th> Password </th><th> Role </th><th> Gender </th><th> Birthday </th><th> Course </th><th> Email </th><th> </th><th>  </th></tr>";
-                while ($row = mysqli_fetch_assoc($result)) {
-                    $selectedID = $row['id'];
-                    print "<tr><td id='Id_$i'>" . $row['id'] . "</td><td>" . $row['name'] . "</td><td>" . $row['password'] . "</td><td>" . $row['role'] . "</td><td>" . $row['gender'] . "</td><td>" . $row['birthday'] . "</td><td>" .
-                        $row['course'] . "</td><td>" . $row['email'] . "</td><td>  <button type='button' class='btn btn-info' value='$selectedID' onclick=" . "enableEdit();editInfo('" . $selectedID . "')" . ">Edit</button> </td></tr>";
-                    $i++;
-                }
-                print "</form></table>";
-            }
-            mysqli_close($connect);
-
-            ?>
         </div>
     </div>
     </div>

@@ -86,13 +86,12 @@ function enableInsert() {
 
 function editInfo(id) {
     var msg = "" + id;
-    alert(msg);
+    //alert(msg);
+    createCookie("editID", msg, 0.05);
 }
 
 
-// function enableInsert() {
-//     document.getElementById("modifyBox").hidden = false;
-//     var count = document.getElementById("idCount").innerHTML;
-
-//     // for (var i = 0; i <= )
-// }
+function enableEdit() {
+    //document.getElementById("modifyBox").hidden = false;
+    window.location.href = "/EIE4432-Group-Project/php/edit.php";
+}

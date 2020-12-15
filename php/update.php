@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 
 <head>
-    <title>User Registration</title>
+    <title>Edit User</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
@@ -10,6 +10,18 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
     <script src="/EIE4432-Group-Project/js/function.js"></script>
     <script src="/EIE4432-Group-Project/js/cookie.js"></script>
+
+    <script>
+        function showID() {
+            var xmlhttp = new XMLHttpRequest();
+            xmlhttp.open("GET", "getSQL.php", true);
+            xmlhttp.send();
+            xmlhttp.onload = function() {
+                document.getElementById("idDisplay").innerHTML = this.responseText;
+            }
+        }
+    </script>
+
 </head>
 
 <body>
@@ -35,18 +47,22 @@
             </ul>
         </div>
     </nav>
-
-    <div class="container h-100 mt-3">
+    <div class="container" style="margin-top:30px">
         <?php
-        //Connect to SQL sever
+        $editID = htmlspecialchars($_COOKIE["editID"]);
+
         include "mysql-connect.php";
-        //include "upload.php";
         $connect = mysqli_connect($server, $user, $pw, $db);
 
         if (!$connect) {
             die('Could not connect: ' . mysqli_error($connect));
         }
 
+        $sql = strval("SELECT * FROM `user` WHERE id = $editID");
+        $result = mysqli_query($connect, $sql);
+
+        //Create dropdown list
+        $row = mysqli_fetch_array($result);
 
         //Get selected inputted values from the HTML page
         $ID = $_POST['UserID'];
@@ -59,52 +75,33 @@
         if ($role == "Teacher") {
             $course = $_POST['course'];
 
-            $sql = "INSERT INTO user (`id`, `name`, `email`, `password`, `image`, `role`, `course`)
-            VALUES ($ID, '$nickName', '$email', '$pw', '', '$role', '$course')";
+            $sql = "UPDATE user SET `id` = $ID , `name` = '$nickName', `email` = '$email', `password` = '$pw', `role` = '$role', `course` =  '$course', `gender` = '', `birthday` = '' WHERE id = $editID";
         } else if ($role == "Student") {
             $birthday = $_POST['birthday'];
             $gender = $_POST['gender'];
 
-            $sql = "INSERT INTO user (`id`, `name`, `email`, `password`, `image`, `role`, `gender`, `birthday`)
-            VALUES ($ID, '$nickName', '$email', '$pw', '', '$role', '$gender', '$birthday')";
+            $sql = "UPDATE user SET `id` = $ID , `name` = '$nickName', `email` = '$email', `password` = '$pw' , `role` = '$role', `gender` = '$gender', `birthday` = '$birthday', `course` =  ''";
         }
 
-        //Show message when record is added successfully
         if (mysqli_query($connect, $sql)) {
-            echo "<h3>A new user record is added successfully!</h3><br>";
-            echo "Please upload a profile image:";
-            echo '<form class="col-12" action="/EIE4432-Group-Project/php/upload.php" method="post" enctype="multipart/form-data">';
-            echo '<div class="form-group">
-            <label for="ProfileImage">Profile image:</label>
-            <div class="input-group">
-                <div class="input-group-prepend">
-                    <span class="input-group-text" id="inputGroupFileAddon01">Upload</span>
-                </div>
-                <div class="custom-file">
-                    <input type="file" class="custom-file-input" id="fileToUpload" name="fileToUpload">
-                    <label class="custom-file-label" for="inputGroupFile01">Choose file</label>
-                </div>
-            </div>
-        </div>
-        <div class="form-group text-center">
-                    <button type="submit" class="btn btn-primary mt-3">Submit</button>
-                </div>
-                </form>';
+            echo "<h3>A new user record is updated successfully!</h3><br>";
+            header('Location: /EIE4432-Group-Project/php/systemManagement.php');
         } else {
             $err = "Error: " . $sql . "<br>" . mysqli_error($connect);
             if (strpos($err, "Duplicate") == true) {
                 echo "<h3>User ID or email is used already. \nPlease use another email.</h3><br>";
+                echo "<div class='text-center'><button type='button' class='btn btn-dark mt-3' onclick='enableEdit()'>Back</button></div>";
             } else {
                 echo $err;
+                echo "<div class='text-center'><button type='button' class='btn btn-dark mt-3' onclick='enableEdit()'>Back</button></div>";
             }
         }
+
         mysqli_close($connect);
+
         ?>
-
     </div>
-
     <div class="jumbotron text-center">
-        <p></p>
     </div>
 
 </body>
