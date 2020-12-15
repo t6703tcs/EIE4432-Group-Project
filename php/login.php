@@ -66,24 +66,19 @@
         }
         if (mysqli_num_rows($result) == 0) {
             print "<h3>No such User ID, please login again.</h3>";
-        } else {                    
+        } else {
             while ($row = mysqli_fetch_assoc($result)) {
-                if ($row['password']!=$pw){
+                if ($row['password'] != $pw) {
                     print "<h3>Password incorrect. Please try again.</h3><br>";
                 } else {
-                    print "<h3>Welcome! " . $row['name'] . " [". $row['role'] . "]". "</h3><br>";
+                    print "<h3>Welcome! " . $row['name'] . " [" . $row['role'] . "]" . "</h3><br>";
+
+                    echo '<script type="text/javascript">',
+                        'createCookie("userID", "'. $row['id'] .'", 1);',
+                        '</script>';
                 }
             }
         }
-
-        // //Show message when record is added successfully
-        // if (mysqli_query($connect, $sql)) {
-
-        //     echo "<h3>Success! </h3><br>";
-        // } else {
-        //     $err = "Error: " . $sql . "<br>" . mysqli_error($connect);
-        //     echo $err;
-        // }
 
         mysqli_close($connect);
         ?>
