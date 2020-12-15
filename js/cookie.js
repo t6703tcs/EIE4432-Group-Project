@@ -36,6 +36,8 @@ function runApp() {
         // if (user != "" && user != null) {
         //     createCookie("username", user, 30);
         // }
+    } else if (user != "" && role == "Admin") {
+        window.location.href = "/EIE4432-Group-Project/php/systemManagement.php";
     }
 }
 

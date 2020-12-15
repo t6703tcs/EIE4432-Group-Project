@@ -75,3 +75,24 @@ function checkInfo() {
     }
 
 }
+
+function enableDelete() {
+    document.getElementById("deleteBox").hidden = false;
+}
+
+function enableInsert() {
+    document.getElementById("insertBox").hidden = false;
+}
+
+function editInfo(id) {
+    var msg = "" + id;
+    alert(msg);
+}
+
+
+// function enableInsert() {
+//     document.getElementById("modifyBox").hidden = false;
+//     var count = document.getElementById("idCount").innerHTML;
+
+//     // for (var i = 0; i <= )
+// }
