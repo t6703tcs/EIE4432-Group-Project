@@ -9,6 +9,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
     <script src="/EIE4432-Group-Project/js/function.js"></script>
+    <script src="/EIE4432-Group-Project/js/cookie.js"></script>
 </head>
 
 <body>
@@ -30,9 +31,6 @@
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="/EIE4432-Group-Project/html/registration.html">Registration</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#">Exam</a>
                 </li>
             </ul>
         </div>
@@ -73,9 +71,26 @@
                 } else {
                     print "<h3>Welcome! " . $row['name'] . " [" . $row['role'] . "]" . "</h3><br>";
 
-                    echo '<script type="text/javascript">',
-                        'createCookie("userID", "'. $row['id'] .'", 1);',
+                    if (empty($_POST['rmbMe'])){
+                        echo '<script type="text/javascript">',
+                        'createCookie("userID", "' . $row['id'] . '", 0.05);',
+                        'createCookie("role", "' . $row['role'] . '", 0.05);',
+                        'runApp();',
                         '</script>';
+                    } else {
+                        echo '<script type="text/javascript">',
+                        'createCookie("userID", "' . $row['id'] . '", 1);',
+                        'createCookie("role", "' . $row['role'] . '", 1);',
+                        'runApp();',
+                        '</script>';
+                    }
+
+                    // if ($row['role'] == "Teacher"){
+                    //     header('Location: /EIE4432-Group-Project/php/teacher.php');
+                    // } else if ($row['role'] == "Student") {
+                    //     header('Location: /EIE4432-Group-Project/php/student.php');
+                    // }
+                   
                 }
             }
         }

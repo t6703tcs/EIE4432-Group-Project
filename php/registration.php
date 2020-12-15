@@ -31,9 +31,6 @@
                 <li class="nav-item">
                     <a class="nav-link" href="/EIE4432-Group-Project/html/registration.html">Registration</a>
                 </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#">Exam</a>
-                </li>
             </ul>
         </div>
     </nav>
