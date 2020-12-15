@@ -16,15 +16,18 @@
 <!--
     Info about the Exam being add
 -->
-<form action="/web/EIE4432-Group-Project/php/AddExam.php" method="POST">
-<label for="ExamDate">Date of the Exam: </label> <input type="date" id="ExamDate" name="ExamDate" value="YYYY-MM-DD">
-    <br><br>
-<label for="StartTime">Starting Time of the Exam: </label> <input type="time" id="StartTime" name="StartTime" value="--:--">
-    <br><br>
-<label for="Duration">Duration of the Exam: </label> <input type="number" id="Duration" name="Duration" min="1" max="12">
-    <br><br>
-        <input type="button" value="Set Exam Time" id="AddTime" onclick="GenerateID()"> <input type="reset" value="Reset" id="ResetTime" onclick="ResetDate()">
-</form>
+<!-- <form action="/web/EIE4432-Group-Project/php/AddExam.php" method="POST">
+    <label for="ExamDate">Date of the Exam: </label> <input type="date" id="ExamDate" name="ExamDate" value="YYYY-MM-DD" required>
+        <br><br>
+    <label for="StartTime">Starting Time of the Exam: </label> <input type="time" id="StartTime" name="StartTime" value="--:--" required>
+        <br><br>
+    <label for="EndTime">Ending Time of the Exam: </label> <input type="time" id="EndTime" name="EndTime" value="--:--" required>
+        <br><br>
+        Exam ID: <input type="text" id="ExamID" name="ExamID" required>
+        Question ID: <input type="text" id="QuestionID" name="QuestionID" required><br><br>
+            <input type="submit" value="Add Question" > <input type="reset" value="Reset" id="ResetTime" onclick="ResetDate()">
+            
+    </form> -->
 
 <br>
 <div id=TimeChose> </div>
@@ -33,12 +36,12 @@
 -->
 
 
-<form action="/web/EIE4432-Group-Project/php/AddExam.php" method="POST">
+
     <p>Question Type: </p>
     <input type="radio" id="MC" name="QuestionType" value="MC"> MC
     <input type="radio" id="TF" name="QuestionType" value="TF"> T/F
     <input type="button" value="Continue..." id= "Chose" onclick="chooseType()">
-</form>
+
 
 
 
@@ -46,6 +49,21 @@
 
     <div id="AddMC">
         <form action="/web/EIE4432-Group-Project/php/AddExam.php" method="POST">
+        <br>
+        <label for="ExamDate">Date of the Exam: </label> 
+        <input type="date" id="ExamDate" name="ExamDate" value="YYYY-MM-DD" required>
+            <br><br>
+        <label for="StartTime">Starting Time of the Exam: </label> 
+        <input type="time" id="StartTime" name="StartTime" value="--:--" required>
+            <br><br>
+        <label for="EndTime">Ending Time of the Exam: </label> 
+        <input type="time" id="EndTime" name="EndTime" value="--:--" required>
+            <br><br>
+
+        Exam ID: <input type="text" id="ExamID" name="ExamID" required>
+        Question ID: <input type="text" id="QuestionID" name="QuestionID" required><br><br>
+       <input type="submit" value="Add Question" > <input type="reset" value="Reset" id="ResetTime" onclick="ResetDate()">
+
         <br><br>
         <label for="Question">Question: </label><br>
         <textarea id="Question" name="Question" rows="4" cols="50" required>
@@ -60,37 +78,50 @@
             Correct Answer: 
             <select id="Answer" name="Answer" required>
                 <option selected hidden value="">Select Correct Ans</option>
-                <option value="ansA">A</option>
-                <option value="ansB">B</option>
-                <option value="ansC">C</option>
-                <option value="ansD">D</option>
+                <option value="A">A</option>
+                <option value="B">B</option>
+                <option value="C">C</option>
+                <option value="D">D</option>
             </select>
             <br><br>
             Score for this question: 
             <input type="number" id="Score" name="Score" min="1" max="100" required>
             <br>
-            <input type="submit" value="Add Question" onclick="hideAll()"> <input type="reset" value="Reset">
+            <input type="submit" value="Add Question"> <input type="reset" value="Reset">
         </form>
     </div> 
 
     <div id="AddTF">
         <form action="/web/EIE4432-Group-Project/php/AddExam.php" method="POST">
+        <br>
+        <label for="ExamDate">Date of the Exam: </label> <input type="date" id="ExamDate" name="ExamDate" value="YYYY-MM-DD" required>
+        <br><br>
+        <label for="StartTime">Starting Time of the Exam: </label> <input type="time" id="StartTime" name="StartTime" value="--:--" required>
+            <br><br>
+        <label for="EndTime">Ending Time of the Exam: </label> <input type="time" id="EndTime" name="EndTime" value="--:--" required>
+        <br><br>
+        Exam ID: <input type="text" id="ExamID" name="ExamID" required>
+        Question ID: <input type="text" id="QuestionID" name="QuestionID" required><br><br>
+            <input type="submit" value="Add Question" > <input type="reset" value="Reset" id="ResetTime" onclick="ResetDate()">
+        
         <br><br>
         <label for="Question">Question: </label><br>
         <textarea id="Question" name="Question" rows="4" cols="50" required>
         </textarea>
+        
             <br><br>
+
             Correct Answer: 
             <select id="Answer" name="Answer" required>
                 <option selected hidden value="">Select Correct Ans</option>
-                <option value="ansT">TRUE</option>
-                <option value="ansF">FALSE</option>
+                <option value="T">TRUE</option>
+                <option value="F">FALSE</option>
             </select>
             <br><br>
             Score for this question: 
             <input type="number" id="Score" name="Score" min="1" max="100" required>
             <br>
-            <input type="submit" value="Add Question" onclick="hideAll()"> <input type="reset" value="Reset">
+            <input type="submit" value="Add Question"> <input type="reset" value="Reset">
         </form>
     </div> 
 
@@ -136,19 +167,19 @@
         document.getElementById("AddTime").disabled = true;
         var ExamDate = document.getElementById("ExamDate").value;
         var StartTime = document.getElementById("StartTime").value;
-        var Duration = document.getElementById("Duration").value;
+        var EndTime = document.getElementById("EndTime").value;
         var ED = ExamDate.toString();
         var ST = StartTime.toString();
-        var Du = Duration.toString();
-        var rawID = ED+ST+Du;
+        var ET = EndTime.toString();
+        var rawID = ED+ST+ET;
 
         var ExamID = rawID.replace(/\D/g, "");
         var tag = document.createElement("p");
-        var text = document.createTextNode("The Exam will be held on " +ED+" at "+ST+" for "+Du+" hours.");
+        var text = document.createTextNode("The Exam will be held on " +ED+" at "+ST+" - "+ET + ". ");
         tag.appendChild(text);
         var element = document.getElementById("TimeChose");
         element.appendChild(tag);
-        alert(ExamID);
+        // alert(ExamID);
         
 
     }
