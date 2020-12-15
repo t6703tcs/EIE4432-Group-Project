@@ -4,6 +4,7 @@ function createCookie(fieldname, fieldvalue, expiry) {
     var expires = "expires=" + date.toGMTString();
     document.cookie = fieldname + "=" + fieldvalue +
         ";" + expires + ";path=/";
+
 }
 
 

@@ -71,11 +71,26 @@
                 } else {
                     print "<h3>Welcome! " . $row['name'] . " [" . $row['role'] . "]" . "</h3><br>";
 
-                    echo '<script type="text/javascript">',
-                        'createCookie("userID", "'. $row['id'] .'", 1);',
-                        'createCookie("role", "'. $row['role'] .'", 1);',
+                    if (empty($_POST['rmbMe'])){
+                        echo '<script type="text/javascript">',
+                        'createCookie("userID", "' . $row['id'] . '", 0.05);',
+                        'createCookie("role", "' . $row['role'] . '", 0.05);',
                         'runApp();',
                         '</script>';
+                    } else {
+                        echo '<script type="text/javascript">',
+                        'createCookie("userID", "' . $row['id'] . '", 1);',
+                        'createCookie("role", "' . $row['role'] . '", 1);',
+                        'runApp();',
+                        '</script>';
+                    }
+
+                    // if ($row['role'] == "Teacher"){
+                    //     header('Location: /EIE4432-Group-Project/php/teacher.php');
+                    // } else if ($row['role'] == "Student") {
+                    //     header('Location: /EIE4432-Group-Project/php/student.php');
+                    // }
+                   
                 }
             }
         }
