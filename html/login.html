@@ -32,9 +32,6 @@
                 <li class="nav-item">
                     <a class="nav-link" href="registration.html">Registration</a>
                 </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#">Exam</a>
-                </li>
             </ul>
         </div>
     </nav>

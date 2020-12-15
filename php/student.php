@@ -1,14 +1,15 @@
 <!DOCTYPE html>
 
 <head>
-    <title>User Login</title>
+    <title>Online examination system - Student</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-    <script src="/js/function.js"></script>
+    <script src="/EIE4432-Group-Project/js/function.js"></script>
+    <script src="/EIE4432-Group-Project/js/cookie.js"></script>
 
 </head>
 
@@ -31,9 +32,6 @@
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="/EIE4432-Group-Project/html/registration.html">Registration</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#">Exam</a>
                 </li>
             </ul>
         </div>
@@ -69,10 +67,10 @@
                         <a class="nav-link" href="#">Take Exam</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#">Change password</a>
+                        <a class="nav-link" href="/EIE4432-Group-Project/html/changePassword.html">Change password</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link active" href="#">Log Out</a>
+                        <a class="nav-link active" href="/EIE4432-Group-Project/html/login.html" onclick="clearCookie();">Log Out</a>
                     </li>
                 </ul>
                 <hr class="d-sm-none">

@@ -32,9 +32,6 @@
                 <li class="nav-item">
                     <a class="nav-link" href="/EIE4432-Group-Project/html/registration.html">Registration</a>
                 </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#">Exam</a>
-                </li>
             </ul>
         </div>
     </nav>
@@ -77,6 +74,7 @@
                     echo '<script type="text/javascript">',
                         'createCookie("userID", "'. $row['id'] .'", 1);',
                         'createCookie("role", "'. $row['role'] .'", 1);',
+                        'runApp();',
                         '</script>';
                 }
             }
