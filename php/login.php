@@ -9,6 +9,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
     <script src="/EIE4432-Group-Project/js/function.js"></script>
+    <script src="/EIE4432-Group-Project/js/cookie.js"></script>
 </head>
 
 <body>
@@ -75,6 +76,7 @@
 
                     echo '<script type="text/javascript">',
                         'createCookie("userID", "'. $row['id'] .'", 1);',
+                        'createCookie("role", "'. $row['role'] .'", 1);',
                         '</script>';
                 }
             }
