@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 
 <head>
-    <title>User Registration</title>
+    <title>User Login</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
@@ -26,7 +26,7 @@
         <div class="collapse navbar-collapse" id="collapsibleNavbar">
             <ul class="navbar-nav">
                 <li class="nav-item">
-                    <a class="nav-link" href="EIE4432-Group-Project/html/login.html">Login</a>
+                    <a class="nav-link" href="/EIE4432-Group-Project/html/login.html">Login</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="/EIE4432-Group-Project/html/registration.html">Registration</a>
@@ -49,30 +49,41 @@
         }
 
         //Get selected inputted values from the HTML page
-        $ID = $_POST['UserID'];
+        $ID = strval($_POST['UserID']);
         $pw = $_POST['pwd'];
 
-        //Select inputted values to INSERT record by using SQL
-        if ($role == "Teacher") {
-            $course = $_POST['course'];
+        //print intval($ID);
 
-            $sql = "INSERT INTO user (`id`, `name`, `email`, `password`, `image`, `role`, `course`)
-            VALUES ($ID, '$nickName', '$email', '$pw', '', '$role', '$course')";
-        } else if ($role == "Student") {
-            $birthday = $_POST['birthday'];
-            $gender = $_POST['gender'];
+        //Select all record to display by using SQL
+        $userQuery = strval("SELECT * FROM `user` WHERE id = $ID");
+        //$sql = strval($userQuery+intval($ID));
 
-            $sql = "INSERT INTO user (`id`, `name`, `email`, `password`, `image`, `role`, `gender`, `birthday`)
-            VALUES ($ID, '$nickName', '$email', '$pw', '', '$role', '$gender', '$birthday')";
+        $result = mysqli_query($connect, $userQuery);
+        $count = mysqli_num_rows($result);
+
+        if (!$result) {
+            die("Could not successfully run query.");
+        }
+        if (mysqli_num_rows($result) == 0) {
+            print "<h3>No such User ID, please login again.</h3>";
+        } else {                    
+            while ($row = mysqli_fetch_assoc($result)) {
+                if ($row['password']!=$pw){
+                    print "<h3>Password incorrect. Please try again.</h3><br>";
+                } else {
+                    print "<h3>Welcome! " . $row['name'] . " [". $row['role'] . "]". "</h3><br>";
+                }
+            }
         }
 
-        //Show message when record is added successfully
-        if (mysqli_query($connect, $sql)) {
-            echo "<h3>A new user record is added successfully!</h3><br>";
-        } else {
-            $err = "Error: " . $sql . "<br>" . mysqli_error($connect);
-            echo $err;
-        }
+        // //Show message when record is added successfully
+        // if (mysqli_query($connect, $sql)) {
+
+        //     echo "<h3>Success! </h3><br>";
+        // } else {
+        //     $err = "Error: " . $sql . "<br>" . mysqli_error($connect);
+        //     echo $err;
+        // }
 
         mysqli_close($connect);
         ?>
