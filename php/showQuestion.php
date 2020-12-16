@@ -1,35 +1,35 @@
+<form action="/EIE4432-Group-Project/php/DoneExam.php" method="post">
+    <?php
+    $hostname = "localhost";
+    $username = "root";
+    $password = "";
+    $dbname = "lib";
 
-<form action="/EIE4432-Group-Project/php/DoneExam.php" method="post">                        
-<?php
-$hostname = "localhost";
-$username = "root";
-$password = "";
-$dbname = "lib";
-
-// Create connection
-$conn = new mysqli($hostname, $username, $password, $dbname);
-// Check connection
-if ($conn->connect_error) {
-  die("Connection failed: " . $conn->connect_error);
-}
+    // Create connection
+    $conn = new mysqli($hostname, $username, $password, $dbname);
+    // Check connection
+    if ($conn->connect_error) {
+        die("Connection failed: " . $conn->connect_error);
+    }
 
 
-$sql = "SELECT QuestionID, StartTime, EndTime, Question, choiceA, choiceB,choiceC, choiceD, Answer, Score FROM question";
-$result = $conn->query($sql);
+    $sql = "SELECT QuestionID, StartTime, EndTime, Question, choiceA, choiceB,choiceC, choiceD, Answer, Score FROM question";
+    $result = $conn->query($sql);
 
-echo'Enter your Student ID Here
+    echo 'Enter your Student ID Here
 <input type="text" name="ID" Value=""> <br><br><br>';
 
-if ($result->num_rows > 0) {
+    if ($result->num_rows > 0) {
+        $i = 0;
+        // output data of each row
+        while ($row = $result->fetch_assoc()) {
 
-  // output data of each row
-  while($row = $result->fetch_assoc()) {
-      if($row["choiceA"] != null){
-    echo "Question ID: ".$row["QuestionID"]."<br>Question: ".$row["Question"]."<br>";
-    echo "  A: ".$row["choiceA"]."   <br>B: ".$row["choiceB"]."  <br> C: ". $row["choiceC"]."  <br> D: ".$row["choiceD"]."<br>";
-                            echo'
-                            
-                            <select name="Answer" id="Answer">
+            if ($row["choiceA"] != null) {
+                echo "Question ID: " . $row["QuestionID"] . "<br>Question: " . $row["Question"] . "<br>";
+                echo "  A: " . $row["choiceA"] . "   <br>B: " . $row["choiceB"] . "  <br> C: " . $row["choiceC"] . "  <br> D: " . $row["choiceD"] . "<br>";
+
+                echo '
+                            <select name="Answer" id="Answer_' . $i . '">
                             <option selected hidden value="">Select Correct Ans</option>
                                 <option value="A">A</option>
                                 <option value="B">B</option>
@@ -39,11 +39,11 @@ if ($result->num_rows > 0) {
                             
                             <br><br><br>
                             ';
-  } else {
-    echo "Question ID: ".$row["QuestionID"]."<br>Question: ".$row["Question"]."<br>";
-    echo "True or False?"."<br>";
-    echo'
-                            <select name="Answer" id="Answer">
+            } else {
+                echo "Question ID: " . $row["QuestionID"] . "<br>Question: " . $row["Question"] . "<br>";
+                echo "True or False?" . "<br>";
+                echo '
+                            <select name="Answer" id="Answer_' . $i . '">
                             <option selected hidden value="">Select Correct Ans</option>
                                 <option value="T">TRUE</option>
                                 <option value="F">FALSE</option>
@@ -51,16 +51,16 @@ if ($result->num_rows > 0) {
                           
                             <br><br><br>
                             ';
+            }
+            $i++;
+        }
+    } else {
+        echo "0 results";
+    }
 
-  }
-
-}} else {
-  echo "0 results";
-}
-
-$conn->close();
-?>
+    $conn->close();
+    ?>
 
 
-<input type="submit" value="submit" name="submit">
+    <input type="submit" value="submit" name="submit">
 </form>
