@@ -6,13 +6,13 @@
         die('Could not connect: ' . mysqli_error($connect));
     }
 
-    $sql = "SELECT empID FROM timesheet";
+    $sql = strval("SELECT * FROM `user`");
     $result = mysqli_query($connect, $sql);
 
     //Create dropdown list
     echo "<option selected disabled hidden></option>";
     while ($row = mysqli_fetch_array($result)) {
-        echo "<option>" . $row['empID'] . "</option>";
+        echo "<option>" . $row['id'] . "</option>";
     }
     mysqli_close($connect);
     ?>

@@ -75,3 +75,23 @@ function checkInfo() {
     }
 
 }
+
+function enableDelete() {
+    document.getElementById("deleteBox").hidden = false;
+}
+
+function enableInsert() {
+    document.getElementById("insertBox").hidden = false;
+}
+
+function editInfo(id) {
+    var msg = "" + id;
+    //alert(msg);
+    createCookie("editID", msg, 0.05);
+}
+
+
+function enableEdit() {
+    //document.getElementById("modifyBox").hidden = false;
+    window.location.href = "/EIE4432-Group-Project/php/edit.php";
+}
