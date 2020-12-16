@@ -1,0 +1,312 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+<title>Add Exam</title>
+
+<script src="/EIE4432-Group-Project/js/function.js"></script>
+<link rel="stylesheet" href="">
+
+
+</head>
+
+<body onload="hideAll()">
+<h1>Add New Exam Here</h1>
+
+
+
+<br>
+
+<br><br>
+<p>Question Type: </p>
+<input type="radio" id="MC" name="QuestionType" value="MC"> MC
+<input type="radio" id="TF" name="QuestionType" value="TF"> T/F
+<input type="button" value="Continue..." id= "Chose" onclick="chooseType()">
+
+    
+        <!-- <br>
+        <label for="ExamDate">Date of the Exam: </label> 
+        <input type="date" id="ExamDate" name="ExamDate" value="YYYY-MM-DD" required>
+            <br><br>
+        <label for="StartTime">Starting Time of the Exam: </label> 
+        <input type="time" id="StartTime" name="StartTime" value="--:--" required>
+            <br><br>
+        <label for="EndTime">Ending Time of the Exam: </label> 
+        <input type="time" id="EndTime" name="EndTime" value="--:--" required>
+            <br><br>
+
+        Exam ID: <input type="text" id="ExamID" name="ExamID" required>
+        Question ID: <input type="text" id="QuestionID" name="QuestionID" required>
+            <br><br>
+       <input type="submit" value="Add Question" > <input type="reset" value="Reset" id="ResetTime" onclick="ResetDate()"> -->
+
+            <!-- <br><br>
+        <label for="Question">Question: </label>
+            <br>
+        <textarea id="Question" name="Question" rows="4" cols="50" required>
+        </textarea> --> 
+
+ 
+
+        <div id="AddMC">
+            <form action="/web/EIE4432-Group-Project/php/AddExam.php" method="POST">
+            <br>
+        <label for="ExamDate">Date of the Exam: </label> 
+        <input type="date" id="ExamDate" name="ExamDate" value="YYYY-MM-DD" required>
+            <br><br>
+        <label for="StartTime">Starting Time of the Exam: </label> 
+        <input type="time" id="StartTime" name="StartTime" value="--:--" required>
+            <br><br>
+        <label for="EndTime">Ending Time of the Exam: </label> 
+        <input type="time" id="EndTime" name="EndTime" value="--:--" required>
+            <br><br>
+
+        Exam ID (please stay the same for the same Exam): <input type="text" id="ExamID" name="ExamID" required><br><br>
+        Question ID (please change for each question): <input type="text" id="QuestionID" name="QuestionID" required>
+        <br><br>
+        <label for="Question">Question: </label>
+            <br>
+        <textarea id="Question" name="Question" rows="4" cols="50" required>
+        </textarea>
+
+            <br><br>
+            Choice A: <input type="text" id="choiceA" name="choiceA" required>
+            Choice B: <input type="text" id="choiceB" name="choiceB" required>
+            <br><br>
+            Choice C: <input type="text" id="choiceC" name="choiceC" required>
+            Choice D: <input type="text" id="choiceD" name="choiceD" required>
+            <br><br>
+            Correct Answer: 
+            <select id="Answer" name="Answer" required>
+                <option selected hidden value="">Select Correct Ans</option>
+                <option value="A">A</option>
+                <option value="B">B</option>
+                <option value="C">C</option>
+                <option value="D">D</option>
+            </select>
+            
+
+            <br><br><br><br>
+            Score for this question: 
+            <input type="number" id="Score" name="Score" min="1" max="100" required>
+            <br><br><br>
+            <input type="submit" value="Add Question"> <input type="reset" value="Reset All">
+        </form>
+    </div> 
+
+    
+
+    <div id="AddTF">
+        <br><br>
+        <form action="/web/EIE4432-Group-Project/php/AddExam.php" method="POST">
+        <label for="ExamDate">Date of the Exam: </label> 
+        <input type="date" id="ExamDate" name="ExamDate" value="YYYY-MM-DD" required>
+            <br><br>
+        <label for="StartTime">Starting Time of the Exam: </label> 
+        <input type="time" id="StartTime" name="StartTime" value="--:--" required>
+            <br><br>
+        <label for="EndTime">Ending Time of the Exam: </label> 
+        <input type="time" id="EndTime" name="EndTime" value="--:--" required>
+            <br><br>
+
+        Exam ID (please stay the same for the same Exam): <input type="text" id="ExamID" name="ExamID" required><br><br>
+        Question ID (please change for each question): <input type="text" id="QuestionID" name="QuestionID" required>
+        <br><br>
+        <label for="Question">Question: </label>
+            <br>
+        <textarea id="Question" name="Question" rows="4" cols="50" required>
+        </textarea>
+        <br><br>
+        Correct Answer: 
+        <select id="Answer" name="Answer" required>
+            <option selected hidden value="">Select Correct Ans</option>
+            <option value="T">TRUE</option>
+            <option value="F">FALSE</option>
+        </select>
+        <br><br><br><br>
+        Score for this question: 
+        <input type="number" id="Score" name="Score" min="1" max="100" required>
+        <br><br><br>
+        <!-- <input type="button" onclick="document.getElementById('QuestionID').value = ''" value="Type A New T/F Question"> -->
+        <input type="submit" value="Add Question"> <input type="reset" value="Reset All">
+</form>
+</div> 
+
+
+    
+
+
+</body>
+
+
+<script>
+    
+
+    function chooseType() {
+        var radios = document.getElementsByName("QuestionType");
+        var selected = Array.from(radios).find(radio => radio.checked);
+        var QuestionText = document.getElementById("Question").value;
+        var AddMC = document.getElementById("AddMC");
+        var AddTF = document.getElementById("AddTF");
+        //If "MC" is checked
+        if(selected == MC){
+            var AddMC = document.getElementById("AddMC");
+            var AddTF = document.getElementById("AddTF");
+            AddMC.style.display = "block";
+            AddTF.style.display = "none";
+        //If "TF" is checked
+        } else if (selected == TF){
+            var AddMC = document.getElementById("AddMC");
+            var AddTF = document.getElementById("AddTF");
+            AddTF.style.display = "block";
+            AddMC.style.display = "none";
+    }
+            
+    }
+
+    function hideAll() {
+    var mc = document.getElementById("AddMC");
+    var tf = document.getElementById("AddTF");
+      mc.style.display = "none"; 
+      tf.style.display = "none"; 
+    }
+
+    function GenerateID(){
+        document.getElementById("AddTime").disabled = true;
+        var ExamDate = document.getElementById("ExamDate").value;
+        var StartTime = document.getElementById("StartTime").value;
+        var EndTime = document.getElementById("EndTime").value;
+        var ED = ExamDate.toString();
+        var ST = StartTime.toString();
+        var ET = EndTime.toString();
+        var rawID = ED+ST+ET;
+
+        var ExamID = rawID.replace(/\D/g, "");
+        var tag = document.createElement("p");
+        var text = document.createTextNode("The Exam will be held on " +ED+" at "+ST+" - "+ET + ". ");
+        tag.appendChild(text);
+        var element = document.getElementById("TimeChose");
+        element.appendChild(tag);
+        // alert(ExamID);
+        
+
+    }
+
+    function ResetDate(){
+        document.getElementById("AddTime").disabled = false;
+        var element = document.getElementById("TimeChose");
+        TimeChose.parentNode.removeChild(TimeChose);
+    }
+
+</script>
+
+<!-- <script>
+    function chooseType() {
+        var radios = document.getElementsByName("QuestionType");
+        var selected = Array.from(radios).find(radio => radio.checked);
+        var QuestionText = document.getElementById("Question").value;
+        // alert(selected.value);
+        if(selected == MC){
+            // alert(selected.value);
+            var tag = document.createElement("p");
+            var text = document.createTextNode(QuestionText);
+            tag.appendChild(text);
+            var element = document.getElementById("new");
+            element.appendChild(tag);
+
+            var btn = document.createElement("BUTTON");
+            var choiceA = document.createElement("input")
+            btn.innerHTML = "ADD";
+            choiceA.innerHTML = "input"
+            document.body.appendChild(btn);
+            document.body.appendChild(choiceA);
+
+        } else if (selected == TF)
+            var tag = document.createElement("p");
+            var text = document.createTextNode(QuestionText);
+            tag.appendChild(text);
+            var element = document.getElementById("new");
+            element.appendChild(tag);
+    }
+</script> -->
+
+
+</html>
+
+<!DOCTYPE html>
+<html>
+
+<head>
+<title>Select Your Exam</title>
+
+<script src="/EIE4432-Group-Project/js/function.js"></script>
+<link rel="stylesheet" href="">
+
+
+</head>
+
+<body onload="hideAll()">
+<h1>The exam will be avaliable when it's time</h1>
+
+
+
+<br>
+
+<br><br>
+<p>Question Type: </p>
+<input type="radio" id="MC" name="QuestionType" value="MC"> MC
+<input type="radio" id="TF" name="QuestionType" value="TF"> T/F
+<input type="button" value="Continue..." id= "Chose" onclick="chooseType()">
+
+            <form action="/web/EIE4432-Group-Project/php/AddExam.php" method="POST">
+            <br>
+        
+
+        Exam ID (please stay the same for the same Exam): <input type="text" id="ExamID" name="ExamID" required><br><br>
+        Question ID (please change for each question): <input type="text" id="QuestionID" name="QuestionID" required>
+        <br><br>
+        <label for="Question">Question: </label>
+            <br>
+        <textarea id="Question" name="Question" rows="4" cols="50" required>
+        </textarea>
+
+            <br><br>
+            Choice A: <input type="text" id="choiceA" name="choiceA" required>
+            Choice B: <input type="text" id="choiceB" name="choiceB" required>
+            <br><br>
+            Choice C: <input type="text" id="choiceC" name="choiceC" required>
+            Choice D: <input type="text" id="choiceD" name="choiceD" required>
+            <br><br>
+            Correct Answer: 
+            <select id="Answer" name="Answer" required>
+                <option selected hidden value="">Select Correct Ans</option>
+                <option value="A">A</option>
+                <option value="B">B</option>
+                <option value="C">C</option>
+                <option value="D">D</option>
+            </select>
+            
+
+            <br><br><br><br>
+            Score for this question: 
+            <input type="number" id="Score" name="Score" min="1" max="100" required>
+            <br><br><br>
+            <input type="submit" value="Add Question"> <input type="reset" value="Reset All">
+        </form>
+
+    
+
+
+</body>
+
+
+<script>
+    
+
+
+</script>
+
+
+
+</html>
+
