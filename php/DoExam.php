@@ -44,24 +44,14 @@ if (mysqli_num_rows($result) > 0) {
         $int_date = intval($date);
         $int_time =  intval($time);
 
-        // if($int_date != $Array[0]){
-        //     echo"You can start the exam ".@$row["ExamID"]." now.";
-        //     echo '<form action="showQuestion.php" method="post">
-
-        //         <input type="submit" onclick="openExam()" value="Start" name="Start">
-
-        //         </form>
-        //         ';
-        //     }
     }
     if ($int_date == $Array[0]) {
         echo "You can start the exam now.";
         echo '<form action="showQuestion.php" method="post">
     
-                            <input type="submit" onclick="openExam()" value="Start" name="Start">
+            <input type="submit" onclick="openExam()" value="Start" name="Start">
                     
-                            </form>
-                            ';
+           </form>';
     }
 }
 
