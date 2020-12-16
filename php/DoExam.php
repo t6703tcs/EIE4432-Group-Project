@@ -16,7 +16,14 @@ $dbname = "lib";
     $sql = "SELECT ExamID, ExamDate, StartTime, EndTime FROM question";
     $result = $conn->query($sql);
     $temp = "";
+    $date = "";
     $time = "";
+    $ExamDate = "SELECT ExamDate FROM question WHERE ExamDate=";
+    $Date = mysqli_query($conn, $ExamDate);
+    $test =  
+    
+
+    date_default_timezone_set("Asia/Hong_Kong");
 
         if (mysqli_num_rows($result) > 0) {
             while($row = mysqli_fetch_assoc($result)) {
@@ -25,16 +32,65 @@ $dbname = "lib";
                     echo "Exam ID: ". $row["ExamID"]. " The Exam will be held on ". $row["ExamDate"]. 
                     ".  From ". $row["StartTime"]. " to ". $row["EndTime"]. "<br><br>";
                     $temp = $row["ExamID"];
+
+                    echo "Current Time is: " . date("jS \of F Y h:i:s A")."<br><br>";
+                            $row = mysqli_fetch_assoc($result);
+                            $date = date("Y-n-j");
+                            echo "Current Date is: " . $date."<br><br>";
+                            echo "Current Time is: " . $row["ExamDate"]."<br><br>";
+                            if($date == $row["ExamDate"]){
+                               echo "is same";
+                            }
+
                 }
             }
             } else {
                 echo "There are no exam.";
                 }
+      
+
+            // if($time != date("jS \of F Y h:i:s A")) {
+            //                 echo "Current Time is: " . date("jS \of F Y h:i:s A")."<br><br>";
+            //                 $row = mysqli_fetch_assoc($result);
+            //                 $date = date("Y-n-j");
+            //                 echo "Current Date is: " . $date."<br><br>";
+            //                 echo "Current Time is: " . $Date."<br><br>";
+            //                 if($date == $Date){
+            //                     alert("hi");
+            //                 }
+                        
+            //         }
 
 
+    echo '<form action="DoExam.php" method="post">
 
-    mysqli_close($conn);    
+        <input type="submit" onclick="checktime(), openExam()" value="Refresh" name="Refresh">
+
+        </form>';
+
+
+        mysqli_close($conn);
 ?>  
 
+<script type="text/JavaScript">    
+  
+function checktime() { 
+        
+         $ExamDate = date("Y-n-j")
+} 
 
+function openExam(){
+    var frag = document.createDocumentFragment(),
+        temp = document.createElement('div');
+    temp.innerHTML = htmlStr;
+    while (temp.firstChild) {
+        frag.appendChild(temp.firstChild);
+    }
+    return frag;
+}
+
+var fragment = create('<div>Hello!</div><p>...</p>');
+// You can use native DOM methods to insert the fragment:
+document.body.insertBefore(fragment, document.body.childNodes[0]);
+</script> 
 
