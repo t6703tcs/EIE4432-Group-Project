@@ -12,9 +12,10 @@
 
             //Select empID to delete record by using SQL
             $sql = "DELETE FROM user WHERE id = '$deleteID'";
+            $sql2 = "DELETE FROM image WHERE id = '$deleteID'";
 
             //Show message when record is removed successfully
-            if (mysqli_query($connect, $sql)) {
+            if (mysqli_query($connect, $sql) && mysqli_query($connect, $sql2)) {
                 echo "<h3>A user record is removed successfully!</h3>";
                 header('Location: /EIE4432-Group-Project/php/systemManagement.php');
             } else {

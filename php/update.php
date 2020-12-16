@@ -80,10 +80,12 @@
             $birthday = $_POST['birthday'];
             $gender = $_POST['gender'];
 
-            $sql = "UPDATE user SET `id` = $ID , `name` = '$nickName', `email` = '$email', `password` = '$pw' , `role` = '$role', `gender` = '$gender', `birthday` = '$birthday', `course` =  ''";
+            $sql = "UPDATE user SET `id` = $ID , `name` = '$nickName', `email` = '$email', `password` = '$pw' , `role` = '$role', `gender` = '$gender', `birthday` = '$birthday', `course` =  '' WHERE id = $editID";
         }
 
-        if (mysqli_query($connect, $sql)) {
+        $sql2 = "UPDATE `image` SET `id` = $ID WHERE id = $editID";
+
+        if (mysqli_query($connect, $sql) && mysqli_query($connect, $sql2)) {
             echo "<h3>A new user record is updated successfully!</h3><br>";
             header('Location: /EIE4432-Group-Project/php/systemManagement.php');
         } else {

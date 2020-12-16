@@ -23,12 +23,12 @@
     <nav class="navbar navbar-expand-sm bg-dark navbar-dark">
         <a class="navbar-brand" href="#">Online examination system</a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsibleNavbar">
-    <span class="navbar-toggler-icon"></span>
-  </button>
+            <span class="navbar-toggler-icon"></span>
+        </button>
         <div class="collapse navbar-collapse" id="collapsibleNavbar">
             <ul class="navbar-nav">
                 <li class="nav-item">
-                <a class="nav-link" href="/EIE4432-Group-Project/html/login.html">Login</a>
+                    <a class="nav-link" href="/EIE4432-Group-Project/html/login.html">Login</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="/EIE4432-Group-Project/html/registration.html">Registration</a>
@@ -55,12 +55,33 @@
             </form>
         </div>
     </div> -->
-    <div class="container" style="margin-top:30px">
+    <div class="container mb-5" style="margin-top:30px">
         <div class="row">
             <div class="col-sm-4">
                 <h2>About Me</h2>
                 <h5>Photo of me:</h5>
-                <div class="fakeimg">Fake Image</div>
+                <div>
+
+                <?php
+                    include "mysql-connect.php";
+                    $connect = mysqli_connect($server, $user, $pw, $db);
+
+                    if (!$connect) {
+                        die('Could not connect: ' . mysqli_error($connect));
+                    }
+
+                    $id = htmlspecialchars($_COOKIE["userID"]);
+
+                    $sql = strval("SELECT * FROM `image` WHERE id = $id");
+                    $result = mysqli_query($connect, $sql);
+
+                    $row = mysqli_fetch_array($result);
+                    echo '<img class="img-fluid img-thumbnail" src="'.$row['imagePath'].'" alt="Profile image">';
+                    
+                    mysqli_close($connect);
+                    ?>      
+
+                </div>
                 <h3>Functions</h3>
                 <ul class="nav nav-pills flex-column">
                     <li class="nav-item">
