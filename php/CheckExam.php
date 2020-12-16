@@ -31,15 +31,17 @@ $result = $conn->query($sql);
             $selectedID = $row['ID'];
             echo "<tr><td>" . $row['ID'] . "</td><td>" . $row['ExamID'] . "</td><td>" . $row['StudentMark'] . 
             "</td><td>" . $row['SubTime'] . "</td></tr>";  
+        }
+
     ?>
+    
 
 </table>
 
     <?php
-        }
     } else {
         echo "No Record Found";
     }
-
+    
     mysqli_close($conn);
     ?>
