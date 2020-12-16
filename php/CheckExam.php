@@ -17,9 +17,10 @@ $result = $conn->query($sql);
     <thead>
         <tr>
             <th scope="col">Student ID</th>
-            <th scope="col">Question ID</th>
-            <th scope="col">Answered</th>
+            <th scope="col">Exam ID</th>
+            <th scope="col">Marks</th>
             <th scope="col">Submittion Time</th>
+
         </tr>
     </thead>
 
@@ -28,10 +29,10 @@ $result = $conn->query($sql);
     if ($result) {
         while ($row = mysqli_fetch_assoc($result)) {
             $selectedID = $row['ID'];
-            print "<tr><td>" . $row['ID'] . "</td><td>" . $row['QuestionID'] . "</td><td>" . $row['Answer'] . "</td><td>" . $row['SubTime'] . "</td><td>" 
-            ."</td></tr>";
-           ;
+            echo "<tr><td>" . $row['ID'] . "</td><td>" . $row['ExamID'] . "</td><td>" . $row['StudentMark'] . 
+            "</td><td>" . $row['SubTime'] . "</td></tr>";  
     ?>
+
 </table>
 
     <?php
