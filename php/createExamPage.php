@@ -12,7 +12,7 @@
     <script src="/EIE4432-Group-Project/js/cookie.js"></script>
 
     <script>
-        function chooseType() {
+        function chooseType() { 
             var radios = document.getElementsByName("QuestionType");
             var selected = Array.from(radios).find(radio => radio.checked);
             var QuestionText = document.getElementById("Question").value;
