@@ -16,8 +16,8 @@
     $sql = "SELECT QuestionID, StartTime, EndTime, Question, choiceA, choiceB,choiceC, choiceD, Answer, Score FROM question";
     $result = $conn->query($sql);
 
-    echo 'Enter your Student ID Here
-<input type="text" name="ID" Value=""> <br><br><br>';
+//     echo 'Enter your Student ID Here
+// <input type="text" name="ID" Value=""> <br><br><br>';
 
     if ($result->num_rows > 0) {
         $i = 0;
