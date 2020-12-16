@@ -2,7 +2,7 @@
 
 
 
-include 'showQuestion.php';
+
 
 $hostname = "localhost";
 $username = "root";
@@ -14,7 +14,7 @@ $ArrayAns = array();
 // $QuestionID = $_POST['QuestionID'];
 
 $Answer = $_POST['Answer'];
-$ID = $_POST['ID'];
+$ID = htmlspecialchars($_COOKIE["userID"]);
 echo $ID;
 echo $Answer;
 // $Score = $_POST['Score'];
@@ -44,3 +44,4 @@ if ($result) {
 
 mysqli_free_result($result);
 mysqli_close($connect);
+?>
