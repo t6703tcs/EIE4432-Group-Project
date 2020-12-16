@@ -1,6 +1,6 @@
 <?php
 
-echo "<h2>The Exam will become avaliable once it's the Starting of the Exam</h3>";
+echo "<h2>The Exam will become avaliable once it's the Starting Time of the Exam</h3>";
 
 $hostname = "localhost";
 $username = "root";
@@ -20,8 +20,9 @@ $dbname = "lib";
     $time = "";
     $ExamDate = "SELECT ExamDate FROM question WHERE ExamDate=";
     $Date = mysqli_query($conn, $ExamDate);
-    $test =  
-    
+    $test = "";
+    $Array = array();
+    $Questions = "SELECT QestionID, Question, choiceA, choiceB, choiceD, Answer, Score FROM question";
 
     date_default_timezone_set("Asia/Hong_Kong");
 
@@ -32,30 +33,37 @@ $dbname = "lib";
                     echo "Exam ID: ". $row["ExamID"]. " The Exam will be held on ". $row["ExamDate"]. 
                     ".  From ". $row["StartTime"]. " to ". $row["EndTime"]. "<br><br>";
                     $temp = $row["ExamID"];
+                    array_push($Array, $row["ExamDate"]);
                 }
             }   
-                
-                    echo "Current Time is: " . date("jS \of F Y h:i:s A")."<br><br>";
+            for ($i=0;$i<=count($Array); $i++){
+
                     $row = mysqli_fetch_assoc($result);
                     $date = date("Y-n-j");
+                    $time = date("h:i");
+                    $int_date = intval ($date);
+                    $int_time =  intval ($time);
 
-                    echo "Current Date is: " . @$date."<br><br>";
-                    echo "Current Time is: " . @$row["ExamDate"]."<br><br>";
-                    if($date == $row["ExamDate"]){
-                    echo "is same";
-
-
-            }
-            } else {
-                echo "There are no exam.";
-                }
-      
-
-    echo '<form action="DoExam.php" method="post">
-
-        <input type="submit" onclick="checktime(), openExam()" value="Refresh" name="Refresh">
-
-        </form>';
+                    // if($int_date != $Array[0]){
+                    //     echo"You can start the exam ".@$row["ExamID"]." now.";
+                    //     echo '<form action="showQuestion.php" method="post">
+    
+                    //         <input type="submit" onclick="openExam()" value="Start" name="Start">
+                    
+                    //         </form>
+                    //         ';
+                    //     }
+                    }
+                    if($int_date == $Array[0]){
+                        echo"You can start the exam now.";
+                        echo '<form action="showQuestion.php" method="post">
+    
+                            <input type="submit" onclick="openExam()" value="Start" name="Start">
+                    
+                            </form>
+                            ';
+                        }
+                    }
 
 
         mysqli_close($conn);
@@ -63,10 +71,6 @@ $dbname = "lib";
 
 <script type="text/JavaScript">    
   
-function checktime() { 
-        
-         $ExamDate = date("Y-n-j")
-} 
 
 function openExam(){
     var frag = document.createDocumentFragment(),
