@@ -82,7 +82,7 @@
                 <h3>Functions</h3>
                 <ul class="nav nav-pills flex-column">
                     <li class="nav-item">
-                        <a class="nav-link" href="#">Create Exam</a>
+                        <a class="nav-link" href="/EIE4432-Group-Project/php/createExamPage.php">Create Exam</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="#">View Exam Result</a>
