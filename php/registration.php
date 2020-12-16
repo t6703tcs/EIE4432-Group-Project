@@ -101,25 +101,6 @@
             echo "<h4>$msg</h4><br>";
             $result = mysqli_query($db, "SELECT * FROM image");
 
-
-            //     echo "Please upload a profile image:";
-            //     echo '<form class="col-12" action="/EIE4432-Group-Project/php/upload.php" method="post" enctype="multipart/form-data">';
-            //     echo '<div class="form-group">
-            //     <label for="ProfileImage">Profile image:</label>
-            //     <div class="input-group">
-            //         <div class="input-group-prepend">
-            //             <span class="input-group-text" id="inputGroupFileAddon01">Upload</span>
-            //         </div>
-            //         <div class="custom-file">
-            //             <input type="file" class="custom-file-input" id="fileToUpload" name="fileToUpload">
-            //             <label class="custom-file-label" for="inputGroupFile01">Choose file</label>
-            //         </div>
-            //     </div>
-            // </div>
-            // <div class="form-group text-center">
-            //             <button type="submit" class="btn btn-primary mt-3">Submit</button>
-            //         </div>
-            //         </form>';
         } else {
             $err = "Error: " . $sql . "<br>" . mysqli_error($connect);
             if (strpos($err, "Duplicate") == true) {

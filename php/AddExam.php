@@ -98,7 +98,7 @@
                 <h3>Functions</h3>
                 <ul class="nav nav-pills flex-column">
                     <li class="nav-item">
-                        <a class="nav-link" href="/EIE4432-Group-Project/php/createExamPage.php">Back</a>
+                        <a class="nav-link" href="/EIE4432-Group-Project/php/addQuestion.php">Back</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link active" href="/EIE4432-Group-Project/html/login.html" onclick="clearCookie();">Log Out</a>
@@ -110,22 +110,23 @@
             <div class="col-sm-8">
                 <?php
 
-                echo "<h2>The Question has been added!</h2>";
-                echo "<h2>You can click Back on your browser to add another question!</h2>";
 
-                $hostname = "localhost";
-                $username = "root";
-                $password = "";
-                $dbname = "lib";
 
-                $ExamID = $_POST['ExamID'];
+                include "mysql-connect.php";
+                $connect = mysqli_connect($server, $user, $pw, $db);
+
+                if (!$connect) {
+                    die('Could not connect: ' . mysqli_error($connect));
+                }
+
+
+                $ExamID = htmlspecialchars($_COOKIE["ExamID"]);
                 $QuestionID = $_POST['QuestionID'];
 
-                $ExamDate = $_POST['ExamDate'];
-                $StartTime = $_POST['StartTime'];
-                $EndTime = $_POST['EndTime'];
+                $ExamDate = htmlspecialchars($_COOKIE["ExamDate"]);
+                $StartTime = htmlspecialchars($_COOKIE["StartTime"]);
+                $EndTime = htmlspecialchars($_COOKIE["EndTime"]);
                 $Question = $_POST['Question'];
-
 
                 $choiceA = @$_POST['choiceA'];
                 $choiceB = @$_POST['choiceB'];
@@ -135,20 +136,28 @@
                 $Answer = $_POST['Answer'];
                 $Score = $_POST['Score'];
 
-                $connect = mysqli_connect($hostname, $username, $password, $dbname);
                 $query = "INSERT INTO `question`( `ExamDate`, `StartTime`, `EndTime`, `ExamID`, `QuestionID`, `Question`, `choiceA`, `choiceB`, `choiceC`, `choiceD`, `Answer`, `Score`) 
                 VALUES ('$ExamDate', '$StartTime', '$EndTime', '$ExamID', '$QuestionID', '$Question' , '$choiceA',  '$choiceB', '$choiceC', '$choiceD', '$Answer', '$Score')";
 
                 $result = mysqli_query($connect, $query);
-                if ($result) {
-                    return TRUE;
-                    echo 'Data Inserted';
+
+                if (!$result) {
+                    die("Could not successfully run query.");
+                    echo "Error: " . $sql . "<br>" . mysqli_error($connect);
                 } else {
-                    return FALSE;
-                    echo 'Data Not Inserted';
+                    echo "<h2>The Question has been added!</h2>";
+                    echo "<h2>You can click Back on your browser to add another question!</h2>";
                 }
 
-                mysqli_free_result($result);
+                // if ($result) {
+                //     return TRUE;
+                //     echo 'Data Inserted';
+                // } else {
+                //     return FALSE;
+                //     echo 'Data Not Inserted';
+                // }
+
+                //mysqli_free_result($result);
                 mysqli_close($connect);
 
                 ?>

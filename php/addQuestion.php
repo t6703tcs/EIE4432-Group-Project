@@ -70,8 +70,9 @@
             var ExamID = document.getElementById("ExamID").value;
             var ExamDate = document.getElementById("ExamDate").value;
             var StartTime = document.getElementById("StartTime").value;
-            var EndTime = document.getElementById("EndTime").value;
+            var EndTime = document.getElementById("EndTime".value);
 
+            alert(ExamID, ExamDate, StartTime, EndTime);
 
             createCookie("ExamID", ExamID, 1);
             createCookie("ExamDate", ExamDate, 1);
@@ -79,13 +80,13 @@
             createCookie("EndTime", EndTime, 1);
 
             //document.getElementById("modifyBox").hidden = false;
-            window.location.href = "/EIE4432-Group-Project/php/addQuestion.php";
+            //window.location.href = "/EIE4432-Group-Project/php/setExam.php";
         }
     </script>
 
 </head>
 
-<body onload="">
+<body onload="hideAll();">
     <div class="jumbotron text-center " style="margin-bottom:0 ">
         <h1>Online examination system</h1>
         <p id="welcomMsg ">Welcome! </p>
@@ -114,7 +115,10 @@
                 <h3>Functions</h3>
                 <ul class="nav nav-pills flex-column">
                     <li class="nav-item">
-                        <a class="nav-link" href="/EIE4432-Group-Project/html/login.html">Back</a>
+                        <a class="nav-link" href="/EIE4432-Group-Project/html/login.html" onclick='document.cookie = "ExamID=;expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
+    document.cookie = "ExamDate=;expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
+    document.cookie = "StartTime=;expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
+    document.cookie = "EndTime=;expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";'>Back</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link active" href="/EIE4432-Group-Project/html/login.html" onclick="clearCookie();">Log Out</a>
@@ -124,70 +128,18 @@
             </div>
 
             <div class="col-sm-8">
-                <h1>Schedule Exam Here:</h1>
-
-                <div id="setTime">
-                    <form action="" method="POST">
-                        <br>
-                        <label for="ExamDate">Date of the Exam: </label>
-                        <input type="date" id="ExamDate" name="ExamDate" value="YYYY-MM-DD" required>
-                        <br><br>
-                        <label for="StartTime">Starting Time of the Exam: </label>
-                        <input type="time" id="StartTime" name="StartTime" value="--:--" required>
-                        <br><br>
-                        <label for="EndTime">Ending Time of the Exam: </label>
-                        <input type="time" id="EndTime" name="EndTime" value="--:--" required>
-                        <br><br> Exam ID:
-                        <input type="text" id="ExamID" name="ExamID" required>
-                        <br><br>
-
-                        <input type="button" value="Submit" onclick="storeExamInfo();"> <input type="reset" value="Reset All">
-                    </form>
-                </div>
-
-
-
-                <!-- <br><br>
+                <h1>Add Question:</h1>
+                <br><br>
                 <p>Question Type: </p>
                 <input type="radio" id="MC" name="QuestionType" value="MC"> MC
                 <input type="radio" id="TF" name="QuestionType" value="TF"> T/F
                 <input type="button" value="Continue..." id="Chose" onclick="chooseType()">
 
-
-                <br>
-                <label for="ExamDate">Date of the Exam: </label>
-                <input type="date" id="ExamDate" name="ExamDate" value="YYYY-MM-DD" required>
-                <br><br>
-                <label for="StartTime">Starting Time of the Exam: </label>
-                <input type="time" id="StartTime" name="StartTime" value="--:--" required>
-                <br><br>
-                <label for="EndTime">Ending Time of the Exam: </label>
-                <input type="time" id="EndTime" name="EndTime" value="--:--" required>
-                <br><br>
-
-                Exam ID: <input type="text" id="ExamID" name="ExamID" required>
-                Question ID: <input type="text" id="QuestionID" name="QuestionID" required>
-                <br><br>
-                <input type="submit" value="Add Question"> <input type="reset" value="Reset" id="ResetTime" onclick="ResetDate()">
-
-                <br><br>
-                <label for="Question">Question: </label>
-                <br>
-                <textarea id="Question" name="Question" rows="4" cols="50" required>
-        </textarea>
+                </textarea>
 
                 <div id="AddMC">
-                    <form action="/EIE4432-Group-Project/php/setExam.php" method="POST">
-                        <br>
-                        <label for="ExamDate">Date of the Exam: </label>
-                        <input type="date" id="ExamDate" name="ExamDate" value="YYYY-MM-DD" required>
-                        <br><br>
-                        <label for="StartTime">Starting Time of the Exam: </label>
-                        <input type="time" id="StartTime" name="StartTime" value="--:--" required>
-                        <br><br>
-                        <label for="EndTime">Ending Time of the Exam: </label>
-                        <input type="time" id="EndTime" name="EndTime" value="--:--" required>
-                        <br><br> Exam ID (please stay the same for the same Exam): <input type="text" id="ExamID" name="ExamID" required><br><br> Question ID (please change for each question): <input type="text" id="QuestionID" name="QuestionID" required>
+                    <form action="/EIE4432-Group-Project/php/addExam.php" method="POST">
+                        <br><br> Question ID (please change for each question): <input type="text" id="QuestionID" name="QuestionID" required>
                         <br><br>
                         <label for="Question">Question: </label>
                         <br>
@@ -214,15 +166,7 @@
                 <div id="AddTF">
                     <br><br>
                     <form action="/EIE4432-Group-Project/php/AddExam.php" method="POST">
-                        <label for="ExamDate">Date of the Exam: </label>
-                        <input type="date" id="ExamDate" name="ExamDate" value="YYYY-MM-DD" required>
-                        <br><br>
-                        <label for="StartTime">Starting Time of the Exam: </label>
-                        <input type="time" id="StartTime" name="StartTime" value="--:--" required>
-                        <br><br>
-                        <label for="EndTime">Ending Time of the Exam: </label>
-                        <input type="time" id="EndTime" name="EndTime" value="--:--" required>
-                        <br><br> Exam ID (please stay the same for the same Exam): <input type="text" id="ExamID" name="ExamID" required><br><br> Question ID (please change for each question): <input type="text" id="QuestionID" name="QuestionID" required>
+                        <br><br> Question ID (please change for each question): <input type="text" id="QuestionID" name="QuestionID" required>
                         <br><br>
                         <label for="Question">Question: </label>
                         <br>
@@ -235,11 +179,11 @@
                         </select>
                         <br><br><br><br> Score for this question:
                         <input type="number" id="Score" name="Score" min="1" max="100" required>
-                        <br><br><br> -->
-                <!-- <input type="button" onclick="document.getElementById('QuestionID').value = ''" value="Type A New T/F Question"> -->
-                <!-- <input type="submit" value="Add Question"> <input type="reset" value="Reset All">
+                        <br><br><br>
+                        <!-- <input type="button" onclick="document.getElementById('QuestionID').value = ''" value="Type A New T/F Question"> -->
+                        <input type="submit" value="Add Question"> <input type="reset" value="Reset All">
                     </form>
-                </div>-->
+                </div>
             </div>
         </div>
     </div>
