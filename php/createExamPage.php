@@ -58,8 +58,6 @@
             var element = document.getElementById("TimeChose");
             element.appendChild(tag);
             // alert(ExamID);
-
-
         }
 
         function ResetDate() {
