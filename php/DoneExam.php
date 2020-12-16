@@ -1,43 +1,75 @@
 <?php
+// Start the session
+session_start();
+date_default_timezone_set("Asia/Hong_Kong");
+?>
+
+<?php
 
 $hostname = "localhost";
 $username = "root";
 $password = "";
 $dbname = "lib";
-$ArrayAns = array();
 
 // $ExamID = $_POST['ExamID'];
 // $QuestionID = $_POST['QuestionID'];
 
-$Answer = $_POST['Answer'];
+$Answer = '';
 $ID = htmlspecialchars($_COOKIE["userID"]);
-echo $ID;
-echo $Answer;
+$examID = htmlspecialchars($_COOKIE["takeExamID"]);
+$ArrayAns = array();
+$ArrayQid = array();
+$ArrayQid = $_SESSION['QuestionIDArray'];
+
 // $Score = $_POST['Score'];
 
 $connect = mysqli_connect($hostname, $username, $password, $dbname);
-$query = "INSERT INTO `studentans`(`ID`,  `Answer`) VALUES ($ID,$Answer)";
 
-$result = mysqli_query($connect, $query);
+$result2 = mysqli_query($connect, "SELECT * FROM `question` WHERE ExamID = $examID");
 
-if ($result) {
+if ($result2) {
+    $rowCount = mysqli_num_rows($result2);
+    for ($j = 0; $j <= $rowCount - 1; $j++) {
 
-    return TRUE;
-    echo "<h2>Your Answer Has Been Uploaded!!</h2>";
-    echo "<h2>You can leave this page now</h2>";
-
-    for ($j = 0; $j <= $i; $j++) {
-
-        echo '<script type="text/JavaScript"> 
-            $Answer = document.getElementById(Answer_' . $i . ');
-        </script> ';
+        $asn = "Answer_" . $j;
+        $Answer = $_POST[$asn];
         array_push($ArrayAns, $Answer);
+        $Qid = $ArrayQid[$j];
+
+        $date = date("Y-n-j");
+        $time = date("h:i:s");
+
+        $realAns = '';
+        $realScore = 0;
+
+        $query = "INSERT INTO `studentans`(`ID`, `StudentAnswer`, `QuestionID`, `SubTime`, `ExamID`, `StudentMark`) VALUES ($ID, '$Answer', $Qid, '$time', $examID, 0)";
+        $result = mysqli_query($connect, $query);
+        if ($result) {
+            // echo "<h2>Your Answer Has Been Uploaded!!</h2>";
+            $sql = mysqli_query($connect, "SELECT * FROM `question` WHERE QuestionID = $Qid");
+            if ($sql) {
+                while ($row = mysqli_fetch_assoc($sql)) {
+                    $realAns = $row['Answer'];
+                    $realScore = $row['Score'];
+                }
+                if ($Answer == $realAns) {
+                    if (mysqli_query($connect, "UPDATE studentans SET `StudentMark` = $realScore WHERE QuestionID = $Qid AND ID = $ID")) {
+                    } else {
+                        echo "Error: " . $sql . "<br>" . mysqli_error($connect);
+                    }
+                }
+            } else {
+                echo "Error: " . $sql . "<br>" . mysqli_error($connect);
+            }
+        } else {
+            echo 'Data Not Inserted';
+            echo "Error: " . $query . "<br>" . mysqli_error($connect);
+        }
     }
 } else {
-    return FALSE;
-    echo 'Data Not Inserted';
+    echo "Error: " . $result2 . "<br>" . mysqli_error($connect);
 }
 
-mysqli_free_result($result);
+
+
 mysqli_close($connect);
-?>

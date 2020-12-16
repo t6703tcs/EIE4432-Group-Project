@@ -1,3 +1,9 @@
+<?php
+// Start the session
+session_start();
+$QuestionIDArray = array();
+?>
+
 <!DOCTYPE html>
 
 <head>
@@ -36,7 +42,7 @@
         </div>
     </nav>
 
-    <div class="container" style="margin-top:30px">
+    <div class="container mb-5" style="margin-top:30px">
         <div class="row">
             <div class="col-sm-4">
                 <h3>Functions</h3>
@@ -53,7 +59,7 @@
             <div class="col-sm-8">
 
 
-                <form action="/EIE4432-Group-Project/php/DoneExam.php" method="post">
+                <form class="text-center" action="/EIE4432-Group-Project/php/DoneExam.php" method="post">
                     <?php
                     $hostname = "localhost";
                     $username = "root";
@@ -85,7 +91,7 @@
                                 echo "  A: " . $row["choiceA"] . "   <br>B: " . $row["choiceB"] . "  <br> C: " . $row["choiceC"] . "  <br> D: " . $row["choiceD"] . "<br>";
 
                                 echo '
-                            <select name="Answer" id="Answer_' . $i . '">
+                            <select name="Answer_' . $i . '" id="Answer_' . $i . '">
                             <option selected hidden value="">Select Correct Ans</option>
                                 <option value="A">A</option>
                                 <option value="B">B</option>
@@ -95,11 +101,13 @@
                             
                             <br><br><br>
                             ';
+                            $qid = $row["QuestionID"];
+                            array_push($QuestionIDArray, $qid);
                             } else {
                                 echo "<h4>Question ID: " . $row["QuestionID"] . "</h4><h3>Question: " . $row["Question"] . "</h3>";
                                 echo "True or False?" . "<br>";
                                 echo '
-                            <select name="Answer" id="Answer_' . $i . '">
+                            <select name="Answer_' . $i . '" id="Answer_' . $i . '">
                             <option selected hidden value="">Select Correct Ans</option>
                                 <option value="T">TRUE</option>
                                 <option value="F">FALSE</option>
@@ -107,6 +115,8 @@
                           
                             <br><br><br>
                             ';
+                            $qid = $row["QuestionID"];
+                            array_push($QuestionIDArray, $qid);
                             }
                             $i++;
                         }
@@ -115,9 +125,10 @@
                     }
 
                     $conn->close();
+                    $_SESSION['QuestionIDArray'] = $QuestionIDArray;
                     ?>
 
-                    <input type="submit" value="submit" name="submit">
+                    <input class="btn btn-primary mt-3" type="submit" value="Submit" name="submit">
                 </form>
 
 
