@@ -109,3 +109,11 @@ function storeExamInfo() {
     //document.getElementById("modifyBox").hidden = false;
     window.location.href = "/EIE4432-Group-Project/php/addQuestion.php";
 }
+
+function examGo(id) {
+    var msg = "" + id;
+    //alert(msg);
+    createCookie("takeExamID", msg, 1);
+
+    window.location.href = "/EIE4432-Group-Project/php/showQuestion.php";
+}
