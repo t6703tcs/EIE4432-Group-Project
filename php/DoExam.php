@@ -32,35 +32,24 @@ $dbname = "lib";
                     echo "Exam ID: ". $row["ExamID"]. " The Exam will be held on ". $row["ExamDate"]. 
                     ".  From ". $row["StartTime"]. " to ". $row["EndTime"]. "<br><br>";
                     $temp = $row["ExamID"];
-
-                    echo "Current Time is: " . date("jS \of F Y h:i:s A")."<br><br>";
-                            $row = mysqli_fetch_assoc($result);
-                            $date = date("Y-n-j");
-                            echo "Current Date is: " . $date."<br><br>";
-                            echo "Current Time is: " . $row["ExamDate"]."<br><br>";
-                            if($date == $row["ExamDate"]){
-                               echo "is same";
-                            }
-
                 }
+            }   
+                
+                    echo "Current Time is: " . date("jS \of F Y h:i:s A")."<br><br>";
+                    $row = mysqli_fetch_assoc($result);
+                    $date = date("Y-n-j");
+
+                    echo "Current Date is: " . @$date."<br><br>";
+                    echo "Current Time is: " . @$row["ExamDate"]."<br><br>";
+                    if($date == $row["ExamDate"]){
+                    echo "is same";
+
+
             }
             } else {
                 echo "There are no exam.";
                 }
       
-
-            // if($time != date("jS \of F Y h:i:s A")) {
-            //                 echo "Current Time is: " . date("jS \of F Y h:i:s A")."<br><br>";
-            //                 $row = mysqli_fetch_assoc($result);
-            //                 $date = date("Y-n-j");
-            //                 echo "Current Date is: " . $date."<br><br>";
-            //                 echo "Current Time is: " . $Date."<br><br>";
-            //                 if($date == $Date){
-            //                     alert("hi");
-            //                 }
-                        
-            //         }
-
 
     echo '<form action="DoExam.php" method="post">
 
