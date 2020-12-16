@@ -90,8 +90,22 @@ function editInfo(id) {
     createCookie("editID", msg, 0.05);
 }
 
-
 function enableEdit() {
     //document.getElementById("modifyBox").hidden = false;
     window.location.href = "/EIE4432-Group-Project/php/edit.php";
+}
+
+function storeExamInfo() {
+    var ExamID = document.getElementById("ExamID").value;
+    var ExamDate = document.getElementById("ExamDate").value;
+    var StartTime = document.getElementById("StartTime").value;
+    var EndTime = document.getElementById("EndTime").value;
+
+    createCookie("ExamID", ExamID, 1);
+    createCookie("ExamDate", ExamDate, 1);
+    createCookie("StartTime", StartTime, 1);
+    createCookie("EndTime", EndTime, 1);
+
+    //document.getElementById("modifyBox").hidden = false;
+    window.location.href = "/EIE4432-Group-Project/php/addQuestion.php";
 }

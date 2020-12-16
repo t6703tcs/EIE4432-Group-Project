@@ -52,4 +52,8 @@ function clearCookie() {
     // }
     document.cookie = "userID=;expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
     document.cookie = "role=;expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
+    document.cookie = "ExamID=;expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
+    document.cookie = "ExamDate=;expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
+    document.cookie = "StartTime=;expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
+    document.cookie = "EndTime=;expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
 }

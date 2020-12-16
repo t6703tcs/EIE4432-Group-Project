@@ -37,24 +37,6 @@
         </div>
     </nav>
 
-    <!-- <div class="container h-100 mt-3">
-        <h2>Please Login:</h2>
-        <div class="row h-100 justify-content-center align-items-center">
-            <form class="col-12" method="post" action="/EIE4432-Group-Project/php/login.php" id="form_content">
-                <div class="form-group">
-                    <label for="text">User ID:</label>
-                    <input type="text" class="form-control " placeholder="Enter User ID" id="UserID" name="UserID">
-                </div>
-                <div class="form-group">
-                    <label for="pwd">Password:</label>
-                    <input type="password" class="form-control" placeholder="Enter password" id="pwd" name="pwd">
-                    <div class="form-group text-center">
-                        <button type="submit" class="btn btn-primary mt-3">Submit</button>
-                    </div>
-                </div>
-            </form>
-        </div>
-    </div> -->
     <div class="container mb-5" style="margin-top:30px">
         <div class="row">
             <div class="col-sm-4">
@@ -62,7 +44,7 @@
                 <h5>Photo of me:</h5>
                 <div>
 
-                <?php
+                    <?php
                     include "mysql-connect.php";
                     $connect = mysqli_connect($server, $user, $pw, $db);
 
@@ -76,10 +58,10 @@
                     $result = mysqli_query($connect, $sql);
 
                     $row = mysqli_fetch_array($result);
-                    echo '<img class="img-fluid img-thumbnail" src="'.$row['imagePath'].'" alt="Profile image">';
-                    
+                    echo '<img class="img-fluid img-thumbnail" src="' . $row['imagePath'] . '" alt="Profile image">';
+
                     mysqli_close($connect);
-                    ?>      
+                    ?>
 
                 </div>
                 <h3>Functions</h3>
@@ -97,17 +79,125 @@
                 <hr class="d-sm-none">
             </div>
             <div class="col-sm-8">
-                <h2>TITLE HEADING</h2>
-                <h5>Title description, Dec 7, 2017</h5>
-                <div class="fakeimg">Fake Image</div>
-                <p>Some text..</p>
-                <p>Sunt in culpa qui officia deserunt mollit anim id est laborum consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco.</p>
-                <br>
-                <h2>TITLE HEADING</h2>
-                <h5>Title description, Sep 2, 2017</h5>
-                <div class="fakeimg">Fake Image</div>
-                <p>Some text..</p>
-                <p>Sunt in culpa qui officia deserunt mollit anim id est laborum consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco.</p>
+                
+                <?php
+                date_default_timezone_set("Asia/Hong_Kong");
+                echo "<h2>The Exam will become avaliable once it's the Starting Time of the Exam</h3>";
+
+                include "mysql-connect.php";
+                $connect = mysqli_connect($server, $user, $pw, $db);
+
+                if (!$connect) {
+                    die('Could not connect: ' . mysqli_error($connect));
+                }
+
+                //Select all record to display by using SQL
+                $userQuery = strval("SELECT * FROM `question`");
+                //$sql = strval($userQuery+intval($ID));
+
+                $result = mysqli_query($connect, $userQuery);
+                $count = mysqli_num_rows($result);
+
+                $temp = "";
+                $examDateArray = array();
+
+                if (!$result) {
+                    die("Could not successfully run query.");
+                }
+                if (mysqli_num_rows($result) == 0) {
+                    print "No records were found with query $userQuery";
+                    print "<h1></h1>";
+                } else {
+                    $i = 0;
+                    $date = date("Y-n-j");
+                    $time = date("h:i");
+                    $int_date = intval($date);
+                    $int_time =  intval($time);
+                    // print "<p>There are <a id='idCount'>" . $count . "</a> users as follows: </p>";
+                    // print "<table class='table table-hover text-center'><form>";
+                    // print "<tr><th> ID </th><th> Name </th><th> Password </th><th> Role </th><th> Gender </th><th> Birthday </th><th> Course </th><th> Email </th><th> </th><th>  </th></tr>";
+                    while ($row = mysqli_fetch_assoc($result)) {
+                        // $selectedID = $row['id'];
+                        // print "<tr><td id='Id_$i'>" . $row['id'] . "</td><td>" . $row['name'] . "</td><td>" . $row['password'] . "</td><td>" . $row['role'] . "</td><td>" . $row['gender'] . "</td><td>" . $row['birthday'] . "</td><td>" .
+                        //     $row['course'] . "</td><td>" . $row['email'] . "</td><td>  <button type='button' class='btn btn-info' value='$selectedID' onclick=" . "enableEdit();editInfo('" . $selectedID . "')" . ">Edit</button> </td></tr>";
+                        if ($temp != $row["ExamID"]) {
+                            echo "Exam ID: " . $row["ExamID"] . " The Exam will be held on " . $row["ExamDate"] .
+                                ".  From " . $row["StartTime"] . " to " . $row["EndTime"] . "<br><br>";
+                            $temp = $row["ExamID"];
+                            array_push($examDateArray, $row["ExamDate"]);
+                            $i++;
+                        }                        
+                        
+                    }
+
+                    for ($j=0;$j<=count($examDateArray)-1;$j++){
+                        if ($examDateArray[$j]==$date) {
+                            echo $examDateArray[1];
+                        } else {
+                            echo "Not Yet! please wait...<br>";
+                        }
+                    }
+                    
+
+                    // print "</form></table>";
+                }
+                mysqli_close($connect);
+
+                // $sql = "SELECT ExamID, ExamDate, StartTime, EndTime FROM question";
+                // $result = $conn->query($sql);
+                // $temp = "";
+                // $date = "";
+                // $time = "";
+                // $ExamDate = "SELECT ExamDate FROM question WHERE ExamDate=";
+                // $Date = mysqli_query($conn, $ExamDate);
+                // $test = "";
+                // $Array = array();
+                // $Questions = "SELECT QestionID, Question, choiceA, choiceB, choiceD, Answer, Score FROM question";
+
+                // date_default_timezone_set("Asia/Hong_Kong");
+
+                // if (mysqli_num_rows($result) > 0) {
+                //     while ($row = mysqli_fetch_assoc($result)) {
+
+                //         if ($temp != $row["ExamID"]) {
+                //             echo "Exam ID: " . $row["ExamID"] . " The Exam will be held on " . $row["ExamDate"] .
+                //                 ".  From " . $row["StartTime"] . " to " . $row["EndTime"] . "<br><br>";
+                //             $temp = $row["ExamID"];
+                //             array_push($Array, $row["ExamDate"]);
+                //         }
+                //     }
+                //     for ($i = 0; $i <= count($Array); $i++) {
+
+                        // $row = mysqli_fetch_assoc($result);
+                        // $date = date("Y-n-j");
+                        // $time = date("h:i");
+                        // $int_date = intval($date);
+                        // $int_time =  intval($time);
+
+                        // if($int_date != $Array[0]){
+                        //     echo"You can start the exam ".@$row["ExamID"]." now.";
+                        //     echo '<form action="showQuestion.php" method="post">
+
+                //         //         <input type="submit" onclick="openExam()" value="Start" name="Start">
+
+                //         //         </form>
+                //         //         ';
+                //         //     }
+                //     }
+                //     if ($int_date == $Array[0]) {
+                //         echo "You can start the exam now.";
+                //         echo '<form action="showQuestion.php" method="post">
+
+                //             <input type="submit" onclick="openExam()" value="Start" name="Start">
+
+                //             </form>
+                //             ';
+                //     }
+                // }
+
+
+                // mysqli_close($conn);
+                ?>
             </div>
         </div>
     </div>
