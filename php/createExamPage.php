@@ -72,7 +72,6 @@
             var StartTime = document.getElementById("StartTime").value;
             var EndTime = document.getElementById("EndTime").value;
 
-
             createCookie("ExamID", ExamID, 1);
             createCookie("ExamDate", ExamDate, 1);
             createCookie("StartTime", StartTime, 1);
@@ -144,8 +143,6 @@
                         <input type="button" value="Submit" onclick="storeExamInfo();"> <input type="reset" value="Reset All">
                     </form>
                 </div>
-
-
 
                 <!-- <br><br>
                 <p>Question Type: </p>

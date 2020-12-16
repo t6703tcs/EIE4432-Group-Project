@@ -79,7 +79,7 @@
                 <hr class="d-sm-none">
             </div>
             <div class="col-sm-8">
-                
+
                 <?php
                 date_default_timezone_set("Asia/Hong_Kong");
                 echo "<h2>The Exam will become avaliable once it's the Starting Time of the Exam</h3>";
@@ -99,7 +99,10 @@
                 $count = mysqli_num_rows($result);
 
                 $temp = "";
+                $examIDArray = array();
                 $examDateArray = array();
+                $examStartTimeArray = array();
+                $examEndTimeTimeArray = array();
 
                 if (!$result) {
                     die("Could not successfully run query.");
@@ -108,95 +111,41 @@
                     print "No records were found with query $userQuery";
                     print "<h1></h1>";
                 } else {
-                    $i = 0;
                     $date = date("Y-n-j");
                     $time = date("h:i");
-                    $int_date = intval($date);
-                    $int_time =  intval($time);
-                    // print "<p>There are <a id='idCount'>" . $count . "</a> users as follows: </p>";
-                    // print "<table class='table table-hover text-center'><form>";
-                    // print "<tr><th> ID </th><th> Name </th><th> Password </th><th> Role </th><th> Gender </th><th> Birthday </th><th> Course </th><th> Email </th><th> </th><th>  </th></tr>";
+
                     while ($row = mysqli_fetch_assoc($result)) {
-                        // $selectedID = $row['id'];
-                        // print "<tr><td id='Id_$i'>" . $row['id'] . "</td><td>" . $row['name'] . "</td><td>" . $row['password'] . "</td><td>" . $row['role'] . "</td><td>" . $row['gender'] . "</td><td>" . $row['birthday'] . "</td><td>" .
-                        //     $row['course'] . "</td><td>" . $row['email'] . "</td><td>  <button type='button' class='btn btn-info' value='$selectedID' onclick=" . "enableEdit();editInfo('" . $selectedID . "')" . ">Edit</button> </td></tr>";
+
                         if ($temp != $row["ExamID"]) {
                             echo "Exam ID: " . $row["ExamID"] . " The Exam will be held on " . $row["ExamDate"] .
                                 ".  From " . $row["StartTime"] . " to " . $row["EndTime"] . "<br><br>";
                             $temp = $row["ExamID"];
                             array_push($examDateArray, $row["ExamDate"]);
-                            $i++;
-                        }                        
-                        
+                            array_push($examStartTimeArray, $row["StartTime"]);
+                            array_push($examEndTimeTimeArray, $row["EndTime"]);
+                            array_push($examIDArray, $row["ExamID"]);
+                        }
                     }
 
-                    for ($j=0;$j<=count($examDateArray)-1;$j++){
-                        if ($examDateArray[$j]==$date) {
-                            echo $examDateArray[1];
+                    for ($j = 0; $j <= count($examDateArray) - 1; $j++) {
+                        $date1 = DateTime::createFromFormat('h:i', strval($time));
+                        $date2 = DateTime::createFromFormat('h:i', strval($examStartTimeArray[$j]));
+                        $date3 = DateTime::createFromFormat('h:i', strval($examEndTimeTimeArray[$j]));
+
+                        $examID = $examIDArray[$j];
+
+                        if ($examDateArray[$j] == $date && $date1 > $date2 && $date1 < $date3) {
+                            echo "You may start now.<br>";
+                            echo '<form action="showQuestion.php" method="post">
+                                <input type="button" onclick="examGo(' . $examID . ');" value="Start">                    
+                            </form>';
                         } else {
                             echo "Not Yet! please wait...<br>";
                         }
                     }
-                    
-
-                    // print "</form></table>";
                 }
                 mysqli_close($connect);
 
-                // $sql = "SELECT ExamID, ExamDate, StartTime, EndTime FROM question";
-                // $result = $conn->query($sql);
-                // $temp = "";
-                // $date = "";
-                // $time = "";
-                // $ExamDate = "SELECT ExamDate FROM question WHERE ExamDate=";
-                // $Date = mysqli_query($conn, $ExamDate);
-                // $test = "";
-                // $Array = array();
-                // $Questions = "SELECT QestionID, Question, choiceA, choiceB, choiceD, Answer, Score FROM question";
-
-                // date_default_timezone_set("Asia/Hong_Kong");
-
-                // if (mysqli_num_rows($result) > 0) {
-                //     while ($row = mysqli_fetch_assoc($result)) {
-
-                //         if ($temp != $row["ExamID"]) {
-                //             echo "Exam ID: " . $row["ExamID"] . " The Exam will be held on " . $row["ExamDate"] .
-                //                 ".  From " . $row["StartTime"] . " to " . $row["EndTime"] . "<br><br>";
-                //             $temp = $row["ExamID"];
-                //             array_push($Array, $row["ExamDate"]);
-                //         }
-                //     }
-                //     for ($i = 0; $i <= count($Array); $i++) {
-
-                        // $row = mysqli_fetch_assoc($result);
-                        // $date = date("Y-n-j");
-                        // $time = date("h:i");
-                        // $int_date = intval($date);
-                        // $int_time =  intval($time);
-
-                        // if($int_date != $Array[0]){
-                        //     echo"You can start the exam ".@$row["ExamID"]." now.";
-                        //     echo '<form action="showQuestion.php" method="post">
-
-                //         //         <input type="submit" onclick="openExam()" value="Start" name="Start">
-
-                //         //         </form>
-                //         //         ';
-                //         //     }
-                //     }
-                //     if ($int_date == $Array[0]) {
-                //         echo "You can start the exam now.";
-                //         echo '<form action="showQuestion.php" method="post">
-
-                //             <input type="submit" onclick="openExam()" value="Start" name="Start">
-
-                //             </form>
-                //             ';
-                //     }
-                // }
-
-
-                // mysqli_close($conn);
                 ?>
             </div>
         </div>
@@ -207,5 +156,28 @@
     </div>
 
 </body>
+<script type="text/JavaScript">
+    function examGo(id) {
+    var msg = "" + id;
+    //alert(msg);
+    createCookie("takeExamID", msg, 1);
+
+    window.location.href = "/EIE4432-Group-Project/php/showQuestion.php";
+}
+
+    function openExam(){
+    var frag = document.createDocumentFragment(),
+        temp = document.createElement('div');
+    temp.innerHTML = htmlStr;
+    while (temp.firstChild) {
+        frag.appendChild(temp.firstChild);
+    }
+    return frag;
+}
+
+var fragment = create('<div>Hello!</div><p>...</p>');
+// You can use native DOM methods to insert the fragment:
+document.body.insertBefore(fragment, document.body.childNodes[0]);
+</script>
 
 </html>
