@@ -19,7 +19,7 @@
             var AddMC = document.getElementById("AddMC");
             var AddTF = document.getElementById("AddTF");
             //If "MC" is checked
-            if (selected == MC) {
+            if (selected == MC) { 
                 var AddMC = document.getElementById("AddMC");
                 var AddTF = document.getElementById("AddTF");
                 AddMC.style.display = "block";
