@@ -35,7 +35,7 @@ if ($result2) {
         $Answer = $_POST[$asn];
         array_push($ArrayAns, $Answer);
         $Qid = $ArrayQid[$j];
-
+ 
         $date = date("Y-n-j");
         $time = date("h:i:s");
 
