@@ -22,12 +22,12 @@
     <nav class="navbar navbar-expand-sm bg-dark navbar-dark">
         <a class="navbar-brand" href="#">Online examination system</a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsibleNavbar">
-    <span class="navbar-toggler-icon"></span>
-  </button>
+            <span class="navbar-toggler-icon"></span>
+        </button>
         <div class="collapse navbar-collapse" id="collapsibleNavbar">
             <ul class="navbar-nav">
                 <li class="nav-item">
-                <a class="nav-link" href="/EIE4432-Group-Project/html/login.html">Login</a>
+                    <a class="nav-link" href="/EIE4432-Group-Project/html/login.html">Login</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="/EIE4432-Group-Project/html/registration.html">Registration</a>
@@ -55,12 +55,14 @@
         </div>
     </div> -->
     <div class="container mb-5" style="margin-top:30px">
+
         <div class="row">
+
             <div class="col-sm-4">
                 <h2>About Me</h2>
                 <h5>Photo of me:</h5>
                 <div>
-                <?php
+                    <?php
                     include "mysql-connect.php";
                     $connect = mysqli_connect($server, $user, $pw, $db);
 
@@ -74,10 +76,10 @@
                     $result = mysqli_query($connect, $sql);
 
                     $row = mysqli_fetch_array($result);
-                    echo '<img class="img-fluid img-thumbnail" src="'.$row['imagePath'].'" alt="Profile image">';
-                    
+                    echo '<img class="img-fluid img-thumbnail" src="' . $row['imagePath'] . '" alt="Profile image">';
+
                     mysqli_close($connect);
-                    ?>      
+                    ?>
                 </div>
                 <h3>Functions</h3>
                 <ul class="nav nav-pills flex-column">
@@ -85,7 +87,10 @@
                         <a class="nav-link" href="/EIE4432-Group-Project/php/createExamPage.php">Create Exam</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#">View Exam Result</a>
+                        <a class="nav-link" href="/EIE4432-Group-Project/php/viewExamTeacher.php">View Exam Result</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#" onclick="enableView();">View Exam Result by student</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="/EIE4432-Group-Project/html/changePassword.html">Change password</a>
@@ -97,8 +102,26 @@
                 <hr class="d-sm-none">
             </div>
             <div class="col-sm-8">
+
+                <div class="alert alert-dark" id="viewBox" hidden>
+                    <strong>View the exam result of each student:</strong>
+                    <form action="viewStudentResult.php" method="post">
+                        <p>Choose one student to view:
+                            <div class="form-group">
+                                <label for="text">User ID:</label>
+                                <input type="text" class="form-control" id="UserID" placeholder="Enter User ID" name="UserID">
+                            </div>
+                            <div class="form-group">
+                                <label for="text">Exam ID:</label>
+                                <input type="text" class="form-control" id="ExamID" placeholder="Enter Exam ID" name="ExamID">
+                            </div>
+                            <div class="text-center"><input class="btn btn-dark" type="submit" value="Submit">
+                        </p>
+                    </form>
+                </div></div>
+
                 <h2>Please select function on your left.</h2>
-                <h5>Your User ID is: <?php echo htmlspecialchars($_COOKIE["userID"]);?></h5>
+                <h5>Your User ID is: <?php echo htmlspecialchars($_COOKIE["userID"]); ?></h5>
                 <p>You can click 'Create Exam' to schedule and add questions for an exam. <br>You can also click 'View Exam Result' to evaluates and views students' submitted answers. <br>If you want to reset password, you can click 'Change Password'! </p>
 
             </div>

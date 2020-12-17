@@ -20,7 +20,6 @@ $result = $conn->query($sql);
             <th scope="col">Exam ID</th>
             <th scope="col">Marks</th>
             <th scope="col">Submittion Time</th>
-
         </tr>
     </thead>
 
@@ -32,7 +31,6 @@ $result = $conn->query($sql);
             echo "<tr><td>" . $row['ID'] . "</td><td>" . $row['ExamID'] . "</td><td>" . $row['StudentMark'] . 
             "</td><td>" . $row['SubTime'] . "</td></tr>";  
         }
-
     ?>
     
 

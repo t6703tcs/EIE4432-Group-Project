@@ -90,6 +90,10 @@ function editInfo(id) {
     createCookie("editID", msg, 0.05);
 }
 
+function enableView() {
+    document.getElementById("viewBox").hidden = false;
+}
+
 function enableEdit() {
     //document.getElementById("modifyBox").hidden = false;
     window.location.href = "/EIE4432-Group-Project/php/edit.php";

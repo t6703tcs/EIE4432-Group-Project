@@ -58,6 +58,7 @@ if ($result2) {
                         echo "Error: " . $sql . "<br>" . mysqli_error($connect);
                     }
                 }
+                header("Location: /EIE4432-Group-Project/html/login.html");
             } else {
                 echo "Error: " . $sql . "<br>" . mysqli_error($connect);
             }

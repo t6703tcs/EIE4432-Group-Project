@@ -67,7 +67,7 @@
                 <h3>Functions</h3>
                 <ul class="nav nav-pills flex-column">
                     <li class="nav-item">
-                        <a class="nav-link" href="#">Take Exam</a>
+                        <a class="nav-link" href="/EIE4432-Group-Project/html/enterExamID.html">View Exam Result</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="/EIE4432-Group-Project/html/changePassword.html">Change password</a>
@@ -135,12 +135,12 @@
                         $examID = $examIDArray[$j];
 
                         if ($examDateArray[$j] == $date && $date1 > $date2 && $date1 < $date3) {
-                            echo "You may start now.<br>";
+                            echo "Exam ID: ".$examID.", You may start now.<br>";
                             echo '<form action="showQuestion.php" method="post">
                                 <input type="button" onclick="examGo(' . $examID . ');" value="Start">                    
                             </form>';
                         } else {
-                            echo "Not Yet! please wait...<br>";
+                            echo "Exam ID: ".$examID.", Not started Yet! please wait...<br>";
                         }
                     }
                 }
