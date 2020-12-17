@@ -53,24 +53,26 @@
             </div>
             <div class="col-sm-8">
 
-            <p> In Exam ID: 1233</p>
+                <h3> In Exam ID: 1233</h3>
                 <br>
                 <p>The Maximum Marks is: 50 marks The Minimnum Marks is: 20 Marks.</p>
                 <br>
                 <p> The median is: 30, and thhe average is 36.5</p>
+                <br><br><br>
                 
-                
-                <p> In Exam ID: 3333</p>
+                <h3> In Exam ID: 3333</h3>
                 <br>
                 <p>The Maximum Marks is: 60 marks The Minimnum Marks is: 20 Marks.</p>
                 <br>
                 <p> The median is: 45, and thhe average is 35.5</p>
-            
-                <p> In Exam ID: 3333</p>
+                <br><br><br>
+
+                <h3> In Exam ID: 4444</h3>
                 <br>
                 <p>The Maximum Marks is: 30 marks The Minimnum Marks is: 0 Marks.</p>
                 <br>
                 <p> The median is: 15, and thhe average is 15</p>
+             
 
 
             </div>
