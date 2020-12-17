@@ -53,113 +53,25 @@
             </div>
             <div class="col-sm-8">
 
-                <?php
-                //Connect to SQL sever
-                include "mysql-connect.php";
-                $connect = mysqli_connect($server, $user, $pw, $db);
-
-                if (!$connect) {
-                    die('Could not connect: ' . mysqli_error($connect));
-                }
-
-                //Get selected inputted values from the HTML page
-                //$ID = strval($_POST['UserID']);
-                $ExamID = $_POST['ExamID'];
-                $role = htmlspecialchars($_COOKIE["role"]);
-
-                if ($role == "Teacher") {
-                    $ID = $_POST['UserID'];
-                } else {
-                    $ID = htmlspecialchars($_COOKIE["userID"]);
-                }
-
-                //Select all record to display by using SQL
-                $userQuery = strval("SELECT * FROM `studentans` WHERE ExamID = $ExamID AND ID = $ID");
-                $result = mysqli_query($connect, $userQuery);
-                //$result2 = mysqli_query($connect, $sql);
-
-                $stnanswerArray = array();
-                $stnScrArray = array();
-                $examTotArray = array();
-
-                $submittedDate = '';
-                $submittedTime = '';
-
-                if (!$result) {
-                    die("Could not successfully run query.");
-                }
-                if (mysqli_num_rows($result) == 0) {
-                    print "No records were found with query $userQuery";
-                } else {
-                    while ($row = mysqli_fetch_assoc($result)) {
-                        array_push($stnanswerArray, $row['StudentAnswer']);
-                        array_push($stnScrArray, $row['StudentMark']);
-                        $submittedTime = $row['SubTime'];
-                        //array_push($stnanswerArray, $row['StudentAnswer']);
-                    }
-                }
+            <p> In Exam ID: 1233</p>
+                <br>
+                <p>The Maximum Marks is: 50 marks The Minimnum Marks is: 20 Marks.</p>
+                <br>
+                <p> The median is: 30, and thhe average is 36.5</p>
                 
-                $hostname = "localhost";
-                $username = "root";
-                $password = "";
-                $dbname = "lib";
+                
+                <p> In Exam ID: 3333</p>
+                <br>
+                <p>The Maximum Marks is: 60 marks The Minimnum Marks is: 20 Marks.</p>
+                <br>
+                <p> The median is: 45, and thhe average is 35.5</p>
+            
+                <p> In Exam ID: 3333</p>
+                <br>
+                <p>The Maximum Marks is: 30 marks The Minimnum Marks is: 0 Marks.</p>
+                <br>
+                <p> The median is: 15, and thhe average is 15</p>
 
-                // Create connection
-                $conn = new mysqli($hostname, $username, $password, $dbname);
-                // Check connection
-                if ($conn->connect_error) {
-                    die("Connection failed: " . $conn->connect_error);
-                }
-
-                $sql = "SELECT * FROM question WHERE ExamID = $ExamID";
-                $result = $conn->query($sql);
-
-                // echo 'Enter your Student ID Here
-                // <input type="text" name="ID" Value=""> <br><br><br>';
-
-                if ($result->num_rows > 0) {
-                    $i = 0;
-                    // output data of each row
-                    while ($row = $result->fetch_assoc()) {
-                        $submittedDate = $row["ExamDate"];
-
-                        if ($row["choiceA"] != null) {
-                            echo "<h5>Question ID: " . $row["QuestionID"] . "</h5><h3>Question: " . $row["Question"] . "</h3>";
-                            echo "  A: " . $row["choiceA"] . "   <br>B: " . $row["choiceB"] . "  <br> C: " . $row["choiceC"] . "  <br> D: " . $row["choiceD"] . "<br>";
-
-                            echo '<br>Question Score: ' . $row["Score"]  . '<br>';
-                            echo 'Student Score: ' . $stnScrArray[$i] . '<br><br>';
-                            echo 'Correct Answer: ' . $row["Answer"] . '<br>';
-                            echo 'Student Answer: ' . $stnanswerArray[$i] . '<br><br><br>';
-
-                            $Score = $row["Score"];
-                            array_push($examTotArray, $Score);
-                        } else {
-                            echo "<h5>Question ID: " . $row["QuestionID"] . "</h5><h3>Question: " . $row["Question"] . "</h3>";
-                            echo "True or False?" . "<br>";
-
-                            echo '<br>Question Score: ' . $row["Score"]  . '<br>';
-                            echo 'Student Score: ' . $stnScrArray[$i] . '<br><br>';
-                            echo 'Correct Answer: ' . $row["Answer"]  . '<br>';
-                            echo 'Student Answer: ' . $stnanswerArray[$i] . '<br><br><br>';
-
-                            $Score = $row["Score"];
-                            array_push($examTotArray, $Score);
-                        }
-                        $i++;
-                    }
-                    echo 'Exam total score: ' . array_sum($examTotArray) . '<br><br>';
-                    echo 'Student total score: ' . array_sum($stnScrArray) . '<br><br>';
-                    echo 'Submitted time: ' . $submittedDate . ', ' . $submittedTime;
-                } else {
-                    echo "0 results";
-                }
-
-                $conn->close();
-
-                mysqli_close($connect);
-
-                ?>
 
             </div>
 
